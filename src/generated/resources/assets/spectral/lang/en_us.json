@@ -1,3 +1,9 @@
 {
-  "elderthings.creative_tab.creativetab": "Spectral"
+  "block.spectral.ley_conduit": "Ley Conduit",
+  "block.spectral.soul_mirror": "Soul Mirror",
+  "block.spectral.spectral_forge": "Spectral Forge",
+  "block.spectral.spirit_locus": "Spirit Locus",
+  "item.spectral.spectral_monocle": "Spectral Monocle",
+  "item.spectral.spirit_crystal": "Spirit Crystal",
+  "spectral.creative_tab.creativetab": "Spectral"
 }

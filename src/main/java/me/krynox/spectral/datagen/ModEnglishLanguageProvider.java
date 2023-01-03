@@ -19,6 +19,14 @@ public class ModEnglishLanguageProvider extends LanguageProvider {
     protected void addTranslations() {
         add("spectral.creative_tab.creativetab", "Spectral");
 
+        add(Registration.LEY_CONDUIT_BLOCK.get(), "Ley Conduit");
+        add(Registration.SOUL_MIRROR_BLOCK.get(), "Soul Mirror");
+        add(Registration.SPECTRAL_FORGE_BLOCK.get(), "Spectral Forge");
+        add(Registration.SPIRIT_LOCUS_BLOCK.get(), "Spirit Locus");
+
+        add(Registration.SPECTRAL_MONOCLE_ITEM.get(), "Spectral Monocle");
+        add(Registration.SPIRIT_CRYSTAL_ITEM.get(), "Spirit Crystal");
+
         if(AMERICAN) {
             // American spellings here
         } else {

@@ -13,6 +13,8 @@ public class ModItemModels extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
+        basicItem(Registration.SPECTRAL_MONOCLE_ITEM.get());
+        basicItem(Registration.SPIRIT_CRYSTAL_ITEM.get());
 
     }
 }

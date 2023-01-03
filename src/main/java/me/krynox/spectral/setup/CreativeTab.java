@@ -16,10 +16,16 @@ public class CreativeTab {
     public static void registerCreativeTab(CreativeModeTabEvent.Register e) {
 
         e.registerCreativeModeTab(Spectral.resLoc("creativetab"), builder -> builder
-                .icon(() -> new ItemStack(Items.ACACIA_BOAT))
+                .icon(() -> new ItemStack(Registration.SPIRIT_CRYSTAL_ITEM.get()))
                 .title(LocalisationHelper.newUnlocName(CREATIVE_TAB, "creativetab"))
                 .displayItems((featureFlags, output, hasOp) -> {
-                    output.accept(Items.ACACIA_BOAT);
+                    output.accept(Registration.LEY_CONDUIT_ITEM.get());
+                    output.accept(Registration.SOUL_MIRROR_ITEM.get());
+                    output.accept(Registration.SPECTRAL_FORGE_ITEM.get());
+                    output.accept(Registration.SPIRIT_LOCUS_ITEM.get());
+
+                    output.accept(Registration.SPECTRAL_MONOCLE_ITEM.get());
+                    output.accept(Registration.SPIRIT_CRYSTAL_ITEM.get());
 
 
                 }));
