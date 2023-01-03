@@ -5,12 +5,14 @@ import me.krynox.spectral.block.LeyConduit;
 import me.krynox.spectral.block.SoulMirror;
 import me.krynox.spectral.block.SpectralForge;
 import me.krynox.spectral.block.SpiritLocus;
+import me.krynox.spectral.block.entity.LeyConduitBE;
 import me.krynox.spectral.item.SpectralMonocle;
 import me.krynox.spectral.item.SpiritCrystal;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -22,11 +24,13 @@ public class Registration {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Spectral.MODID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Spectral.MODID);
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, Spectral.MODID);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Spectral.MODID);
 
     public static void registerAll(IEventBus bus) {
         BLOCKS.register(bus);
         ITEMS.register(bus);
         ENTITIES.register(bus);
+        BLOCK_ENTITIES.register(bus);
     }
 
     public static final BlockBehaviour.Properties DEFAULT_BLOCK_PROPERTIES = BlockBehaviour.Properties.of(Material.STONE).strength(2f).requiresCorrectToolForDrops();
@@ -56,14 +60,18 @@ public class Registration {
     public static final RegistryObject<Item> SPIRIT_CRYSTAL_ITEM
             = ITEMS.register("spirit_crystal", SpiritCrystal::new);
 
-    //////////////////////////////
-    //// BLOCKS & BLOCK_ITEMS ////
-    //////////////////////////////
+    /////////////////////////////////////////////////
+    //// BLOCKS, BLOCK_ITEMS, BLOCK_ENTITY_TYPES ////
+    /////////////////////////////////////////////////
 
     public static final RegistryObject<Block> LEY_CONDUIT_BLOCK
             = BLOCKS.register("ley_conduit", LeyConduit::new);
     public static final RegistryObject<Item> LEY_CONDUIT_ITEM
             = fromBlock(LEY_CONDUIT_BLOCK);
+    public static final RegistryObject<BlockEntityType<LeyConduitBE>> LEY_CONDUIT_BE
+            = BLOCK_ENTITIES.register("ley_conduit", () -> BlockEntityType.Builder
+                    .of(LeyConduitBE::new, LEY_CONDUIT_BLOCK.get())
+                    .build(null)); //null type for the datafixer
 
     public static final RegistryObject<Block> SOUL_MIRROR_BLOCK
             = BLOCKS.register("soul_mirror", SoulMirror::new);
