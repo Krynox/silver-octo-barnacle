@@ -3,7 +3,6 @@ package me.krynox.spectral.setup;
 import me.krynox.spectral.Spectral;
 import me.krynox.spectral.localisation.LocalisationHelper;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -27,8 +26,15 @@ public class CreativeTab {
                     output.accept(Registration.SPECTRAL_MONOCLE_ITEM.get());
                     output.accept(Registration.SPIRIT_CRYSTAL_ITEM.get());
 
+                    output.accept(Registration.FIRE_ECTO_ITEM.get());
+                    output.accept(Registration.LIGHTNING_ECTO_ITEM.get());
+                    output.accept(Registration.WIND_ECTO_ITEM.get());
+                    output.accept(Registration.WATER_ECTO_ITEM.get());
+                    output.accept(Registration.EARTH_ECTO_ITEM.get());
+                    output.accept(Registration.ICE_ECTO_ITEM.get());
+                    output.accept(Registration.LIGHT_ECTO_ITEM.get());
+                    output.accept(Registration.DARK_ECTO_ITEM.get());
 
                 }));
     }
-
 }

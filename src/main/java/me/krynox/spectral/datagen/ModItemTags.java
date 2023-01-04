@@ -13,14 +13,13 @@ import java.util.concurrent.CompletableFuture;
 
 public class ModItemTags extends ItemTagsProvider {
 
-    private static final TagsProvider<Block> tagsProvider = null;
 
-    public ModItemTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
-        super(output, lookupProvider, tagsProvider, Spectral.MODID, existingFileHelper);
+    public ModItemTags(PackOutput pOutput, CompletableFuture<HolderLookup.Provider> pLookupProvider, TagsProvider<Block> blockProvider, @Nullable ExistingFileHelper existingFileHelper) {
+        super(pOutput, pLookupProvider, blockProvider, Spectral.MODID, existingFileHelper);
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider p_256380_) {
+    protected void addTags(HolderLookup.Provider provider) {
 
     }
 }

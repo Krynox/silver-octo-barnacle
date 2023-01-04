@@ -47,6 +47,10 @@ public class Registration {
         return ITEMS.register(block.getId().getPath(), () -> new BlockItem(block.get(), DEFAULT_ITEM_PROPERTIES));
     }
 
+    public static RegistryObject<Item> newDefaultItem(String name) {
+        return ITEMS.register(name, () -> new Item(DEFAULT_ITEM_PROPERTIES));
+    }
+
     /////////////////////////////////////////////
     ///////// Registration Starts Here //////////
 
@@ -59,6 +63,23 @@ public class Registration {
 
     public static final RegistryObject<Item> SPIRIT_CRYSTAL_ITEM
             = ITEMS.register("spirit_crystal", SpiritCrystal::new);
+
+    public static final RegistryObject<Item> FIRE_ECTO_ITEM
+            = newDefaultItem("fire_ecto");
+    public static final RegistryObject<Item> LIGHTNING_ECTO_ITEM
+            = newDefaultItem("lightning_ecto");
+    public static final RegistryObject<Item> WIND_ECTO_ITEM
+            = newDefaultItem("wind_ecto");
+    public static final RegistryObject<Item> EARTH_ECTO_ITEM
+            = newDefaultItem("earth_ecto");
+    public static final RegistryObject<Item> WATER_ECTO_ITEM
+            = newDefaultItem("water_ecto");
+    public static final RegistryObject<Item> ICE_ECTO_ITEM
+            = newDefaultItem("ice_ecto");
+    public static final RegistryObject<Item> DARK_ECTO_ITEM
+            = newDefaultItem("dark_ecto");
+    public static final RegistryObject<Item> LIGHT_ECTO_ITEM
+            = newDefaultItem("light_ecto");
 
     /////////////////////////////////////////////////
     //// BLOCKS, BLOCK_ITEMS, BLOCK_ENTITY_TYPES ////
