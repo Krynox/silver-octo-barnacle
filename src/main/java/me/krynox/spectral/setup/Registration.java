@@ -6,11 +6,15 @@ import me.krynox.spectral.block.SoulMirror;
 import me.krynox.spectral.block.SpectralForge;
 import me.krynox.spectral.block.SpiritLocus;
 import me.krynox.spectral.block.entity.LeyConduitBE;
+import me.krynox.spectral.crafting.SpectralForgeRecipe;
+import me.krynox.spectral.datagen.recipe.SpectralForgeRecipeSerializer;
 import me.krynox.spectral.item.SpectralMonocle;
 import me.krynox.spectral.item.SpiritCrystal;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -25,12 +29,16 @@ public class Registration {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Spectral.MODID);
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, Spectral.MODID);
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Spectral.MODID);
+    public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, Spectral.MODID);
+    public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Spectral.MODID);
 
     public static void registerAll(IEventBus bus) {
         BLOCKS.register(bus);
         ITEMS.register(bus);
         ENTITIES.register(bus);
         BLOCK_ENTITIES.register(bus);
+        RECIPE_TYPES.register(bus);
+        RECIPE_SERIALIZERS.register(bus);
     }
 
     public static final BlockBehaviour.Properties DEFAULT_BLOCK_PROPERTIES = BlockBehaviour.Properties.of(Material.STONE).strength(2f).requiresCorrectToolForDrops();
@@ -53,6 +61,17 @@ public class Registration {
 
     /////////////////////////////////////////////
     ///////// Registration Starts Here //////////
+
+    //////////////////////
+    //// RECIPE STUFF ////
+    //////////////////////
+
+    public static final RegistryObject<RecipeType<SpectralForgeRecipe>> SPECTRAL_FORGE_RECIPETYPE =
+            RECIPE_TYPES.register("spectral_forge_recipetype", () ->
+                    RecipeType.simple(Spectral.resLoc("spectral_forge_recipetype")));
+
+    public static final RegistryObject<SpectralForgeRecipeSerializer> SPECTRAL_FORGE_RECIPESERIALIZER =
+            RECIPE_SERIALIZERS.register("spectral_forge_recipeserializer", SpectralForgeRecipeSerializer::new);
 
     ///////////////
     //// ITEMS ////

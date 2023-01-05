@@ -13,6 +13,6 @@ public class ModRecipes extends RecipeProvider {
 
     @Override
     protected void buildRecipes(Consumer<FinishedRecipe> p) {
-
+        //p.accept(SpectralForgeRecipeBuilder.build(.........));
     }
 }
