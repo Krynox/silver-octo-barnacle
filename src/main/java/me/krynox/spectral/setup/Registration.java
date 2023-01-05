@@ -6,6 +6,8 @@ import me.krynox.spectral.block.SoulMirror;
 import me.krynox.spectral.block.SpectralForge;
 import me.krynox.spectral.block.SpiritLocus;
 import me.krynox.spectral.block.entity.LeyConduitBE;
+import me.krynox.spectral.block.entity.SoulMirrorBE;
+import me.krynox.spectral.block.entity.SpectralForgeBE;
 import me.krynox.spectral.crafting.SpectralForgeRecipe;
 import me.krynox.spectral.datagen.recipe.SpectralForgeRecipeSerializer;
 import me.krynox.spectral.item.SpectralMonocle;
@@ -117,11 +119,19 @@ public class Registration {
             = BLOCKS.register("soul_mirror", SoulMirror::new);
     public static final RegistryObject<Item> SOUL_MIRROR_ITEM
             = fromBlock(SOUL_MIRROR_BLOCK);
+    public static final RegistryObject<BlockEntityType<SoulMirrorBE>> SOUL_MIRROR_BE
+            = BLOCK_ENTITIES.register("soul_mirror", () -> BlockEntityType.Builder
+            .of(SoulMirrorBE::new, SOUL_MIRROR_BLOCK.get())
+            .build(null));
 
     public static final RegistryObject<Block> SPECTRAL_FORGE_BLOCK
             = BLOCKS.register("spectral_forge", SpectralForge::new);
     public static final RegistryObject<Item> SPECTRAL_FORGE_ITEM
             = fromBlock(SPECTRAL_FORGE_BLOCK);
+    public static final RegistryObject<BlockEntityType<SpectralForgeBE>> SPECTRAL_FORGE_BE
+            = BLOCK_ENTITIES.register("spectral_forge", () -> BlockEntityType.Builder
+            .of(SpectralForgeBE::new, SPECTRAL_FORGE_BLOCK.get())
+            .build(null));
 
     public static final RegistryObject<Block> SPIRIT_LOCUS_BLOCK
             = BLOCKS.register("spirit_locus", SpiritLocus::new);
