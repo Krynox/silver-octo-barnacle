@@ -16,5 +16,13 @@ public class ModItemModels extends ItemModelProvider {
         basicItem(Registration.SPECTRAL_MONOCLE_ITEM.get());
         basicItem(Registration.SPIRIT_CRYSTAL_ITEM.get());
 
+        basicItem(Registration.FIRE_ECTO_ITEM.get());
+        basicItem(Registration.LIGHTNING_ECTO_ITEM.get());
+        basicItem(Registration.WIND_ECTO_ITEM.get());
+        basicItem(Registration.WATER_ECTO_ITEM.get());
+        basicItem(Registration.EARTH_ECTO_ITEM.get());
+        basicItem(Registration.ICE_ECTO_ITEM.get());
+        basicItem(Registration.LIGHT_ECTO_ITEM.get());
+        basicItem(Registration.DARK_ECTO_ITEM.get());
     }
 }
