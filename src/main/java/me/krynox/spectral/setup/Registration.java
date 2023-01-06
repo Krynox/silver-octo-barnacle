@@ -113,7 +113,7 @@ public class Registration {
     public static final RegistryObject<BlockEntityType<LeyConduitBE>> LEY_CONDUIT_BE
             = BLOCK_ENTITIES.register("ley_conduit", () -> BlockEntityType.Builder
                     .of(LeyConduitBE::new, LEY_CONDUIT_BLOCK.get())
-                    .build(null)); //null type for the datafixer
+                    .build(null)); //passing null to opt out of datafixer system
 
     public static final RegistryObject<Block> SOUL_MIRROR_BLOCK
             = BLOCKS.register("soul_mirror", SoulMirror::new);

@@ -28,29 +28,59 @@ public class SpectralForgeRecipeSerializer implements RecipeSerializer<SpectralF
         List<Item> infusionItems = data
                 .get("infusionItems")
                 .getAsJsonArray()
-                .asList()
+                .asList() // why doesn't it have a stream() method of its own :(
                 .stream()
                 .map((e) -> ForgeRegistries.ITEMS.getValue(Spectral.resLoc(e.getAsString())))
                 .toList();
-        int fireCost = data.get("fireCost").getAsInt();
-        int lightningCost = data.get("lightningCost").getAsInt();
-        int windCost = data.get("windCost").getAsInt();
-        int earthCost = data.get("earthCost").getAsInt();
-        int waterCost = data.get("waterCost").getAsInt();
-        int iceCost = data.get("iceCost").getAsInt();
-        int lightCost = data.get("lightCost").getAsInt();
-        int darkCost = data.get("darkCost").getAsInt();
 
-        return new SpectralForgeRecipe(pRecipeId, result, centralItem, infusionItems, fireCost, lightningCost, windCost, earthCost, waterCost, iceCost, lightCost, darkCost);
+        SpectralForgeRecipe output = new SpectralForgeRecipe(pRecipeId, result, centralItem, infusionItems);
+
+        output.setFireCost(data.get("fireCost").getAsInt());
+        output.setLightningCost(data.get("lightningCost").getAsInt());
+        output.setWindCost(data.get("windCost").getAsInt());
+        output.setEarthCost(data.get("earthCost").getAsInt());
+        output.setWaterCost(data.get("waterCost").getAsInt());
+        output.setIceCost(data.get("iceCost").getAsInt());
+        output.setLightCost(data.get("lightCost").getAsInt());
+        output.setDarkCost(data.get("darkCost").getAsInt());
+
+        return output;
     }
 
     @Override
     public @Nullable SpectralForgeRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
-        return null; //todo - datapacks on servers will probably crash until I do this. servers in general might crash...
+
+        Item result = pBuffer.readRegistryIdSafe(Item.class);
+        Item centralItem = pBuffer.readRegistryIdSafe(Item.class);
+        List<Item> infusionItems = pBuffer.readList((buf) -> buf.readRegistryIdSafe(Item.class));
+
+        SpectralForgeRecipe output = new SpectralForgeRecipe(pRecipeId, result, centralItem, infusionItems);
+
+        output.setFireCost(pBuffer.readInt());
+        output.setLightningCost(pBuffer.readInt());
+        output.setWindCost(pBuffer.readInt());
+        output.setEarthCost(pBuffer.readInt());
+        output.setWaterCost(pBuffer.readInt());
+        output.setIceCost(pBuffer.readInt());
+        output.setLightCost(pBuffer.readInt());
+        output.setDarkCost(pBuffer.readInt());
+
+        return output;
     }
 
     @Override
     public void toNetwork(FriendlyByteBuf pBuffer, SpectralForgeRecipe pRecipe) {
+        pBuffer.writeRegistryId(ForgeRegistries.ITEMS, pRecipe.getResult());
+        pBuffer.writeRegistryId(ForgeRegistries.ITEMS, pRecipe.getCentralItem());
+        pBuffer.writeCollection(pRecipe.getInfusionItems(), (buf, item) -> buf.writeRegistryId(ForgeRegistries.ITEMS, item));
 
+        pBuffer.writeInt(pRecipe.getFireCost());
+        pBuffer.writeInt(pRecipe.getLightningCost());
+        pBuffer.writeInt(pRecipe.getWindCost());
+        pBuffer.writeInt(pRecipe.getEarthCost());
+        pBuffer.writeInt(pRecipe.getWaterCost());
+        pBuffer.writeInt(pRecipe.getIceCost());
+        pBuffer.writeInt(pRecipe.getLightCost());
+        pBuffer.writeInt(pRecipe.getDarkCost());
     }
 }
