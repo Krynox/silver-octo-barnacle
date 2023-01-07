@@ -1,6 +1,7 @@
 package me.krynox.spectral.capability;
 
 import me.krynox.spectral.Spectral;
+import net.minecraft.nbt.CompoundTag;
 
 public class EctoHandlerImpl implements IEctoHandler {
     int fire = 0;
@@ -33,6 +34,7 @@ public class EctoHandlerImpl implements IEctoHandler {
 
     @Override
     public IEctoHandler set(EctoType type, int x) {
+        Spectral.LOGGER.info("Fire then: " + fire + ", adding " + x);
         switch (type) {
             case FIRE -> fire = x;
             case LIGHTNING -> lightning = x;
@@ -43,6 +45,34 @@ public class EctoHandlerImpl implements IEctoHandler {
             case LIGHT -> light = x;
             case DARK -> dark = x;
         }
+        Spectral.LOGGER.info("Fire now: " + fire);
         return this;
+    }
+
+
+    @Override
+    public CompoundTag serialize() {
+        CompoundTag tag = new CompoundTag();
+        tag.putInt("fire", fire);
+        tag.putInt("lightning", lightning);
+        tag.putInt("wind", wind);
+        tag.putInt("earth", earth);
+        tag.putInt("water", water);
+        tag.putInt("ice", ice);
+        tag.putInt("light", light);
+        tag.putInt("dark", dark);
+        return tag;
+    }
+
+    @Override
+    public void deserialize(CompoundTag tag) {
+        fire = tag.getInt("fire");
+        lightning = tag.getInt("lightning");
+        wind = tag.getInt("wind");
+        earth = tag.getInt("earth");
+        water = tag.getInt("water");
+        ice = tag.getInt("ice");
+        light = tag.getInt("light");
+        dark = tag.getInt("dark");
     }
 }

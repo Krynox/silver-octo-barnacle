@@ -8,6 +8,7 @@ import me.krynox.spectral.crafting.SpectralForgeRecipe;
 import me.krynox.spectral.setup.Registration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
@@ -25,16 +26,13 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class SpectralForgeBE extends BlockEntity {
-    private final IItemHandlerModifiable inventory;
+    private final ItemStackHandler inventory;
     private final IEctoHandler ectoStorage;
-
     //cached maybes to return for the getCapability calls
     private final LazyOptional<IItemHandler> maybeInventory;
     private final LazyOptional<IEctoHandler> maybeEctoStorage;
-
     //also cache the recipe wrapper instance
     private final EctoInvRecipeWrapper recipeWrapper;
-
     private final RecipeManager.CachedCheck<EctoInvRecipeWrapper, SpectralForgeRecipe> recipeChecker;
 
     public SpectralForgeBE(BlockPos pPos, BlockState pBlockState) {
@@ -48,11 +46,18 @@ public class SpectralForgeBE extends BlockEntity {
         this.recipeWrapper = new EctoInvRecipeWrapper(inventory, ectoStorage);
     }
 
+    /**
+     * Attempt to craft an item using the current state of the forge.
+     */
     public Optional<ItemStack> doCraft(Level level) {
         return recipeChecker
                 .getRecipeFor(recipeWrapper, level)
                 .map((recipe) -> recipe.assemble(recipeWrapper));
     }
+
+    //////////////////////////
+    //// Capability stuff ////
+    //////////////////////////
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
@@ -69,6 +74,45 @@ public class SpectralForgeBE extends BlockEntity {
     public void invalidateCaps() {
         super.invalidateCaps();
         this.maybeInventory.invalidate();
+        this.maybeEctoStorage.invalidate();
     }
 
+    /////////////////////////////
+    //// Saving data to disk ////
+    /////////////////////////////
+
+    @Override
+    public void load(CompoundTag tag) {
+        this.inventory.deserializeNBT(tag.getCompound("inv"));
+        this.ectoStorage.deserialize(tag.getCompound("ecto"));
+        super.load(tag);
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag pTag) {
+        pTag.put("inv", inventory.serializeNBT());
+        pTag.put("ecto", ectoStorage.serialize());
+        super.saveAdditional(pTag);
+    }
+
+    ////////////////////////////////////////////////
+    //// Syncing data between client and server ////
+    ////////////////////////////////////////////////
+
+    //TODO - This is currently probably more heavyweight than needed, syncing everything. Come back later and make in leaner.
+
+    @Override
+    public CompoundTag getUpdateTag() {
+        CompoundTag tag = new CompoundTag();
+        tag.put("inv", inventory.serializeNBT());
+        tag.put("ecto", ectoStorage.serialize());
+
+        return tag;
+    }
+
+    @Override
+    public void handleUpdateTag(CompoundTag tag) {
+        this.inventory.deserializeNBT(tag.getCompound("inv"));
+        this.ectoStorage.deserialize(tag.getCompound("ecto"));
+    }
 }
