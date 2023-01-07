@@ -2,6 +2,7 @@ package me.krynox.spectral.datagen;
 
 import me.krynox.spectral.Spectral;
 import me.krynox.spectral.setup.Registration;
+import me.krynox.spectral.spell.Spell;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.data.LanguageProvider;
@@ -16,22 +17,31 @@ public class ModEnglishLanguageProvider extends LanguageProvider {
         AMERICAN = locale.equals("en_us");
     }
 
-    private void addSplit(Item key, String yankee, String queens) {
+    public void addSplit(Item key, String american, String british) {
+        addSplit(key.getDescriptionId(), american, british);
+    }
+
+    public void addSplit(String key, String american, String british) {
         if(AMERICAN) {
-            add(key, yankee);
+            add(key, american);
         } else {
-            add(key, queens);
+            add(key, british);
         }
     }
+
+    public void add(Spell key, String name) {
+        add(key.getDescriptionId(), name);
+    }
+
 
     @Override
     protected void addTranslations() {
         add(Spectral.MODID + ".creative_tab.creativetab", "Spectral");
 
-        add(Registration.LEY_CONDUIT_BLOCK.get(), "Ley Conduit");
+        add(Registration.SPIRIT_SPAWN_EGG_ITEM.get(), "Spawn Spirit");
+
         add(Registration.SOUL_MIRROR_BLOCK.get(), "Soul Mirror");
         add(Registration.SPECTRAL_FORGE_BLOCK.get(), "Spectral Forge");
-        add(Registration.SPIRIT_LOCUS_BLOCK.get(), "Spirit Locus");
 
         add(Registration.SPECTRAL_MONOCLE_ITEM.get(), "Spectral Monocle");
         add(Registration.SPIRIT_CRYSTAL_ITEM.get(), "Spirit Crystal");
@@ -45,5 +55,6 @@ public class ModEnglishLanguageProvider extends LanguageProvider {
         add(Registration.DARK_ECTO_ITEM.get(), "Twilit Ectoplasm");
         add(Registration.LIGHT_ECTO_ITEM.get(), "Refulgent Ectoplasm");
 
+        add(Registration.SPIRIT_ENTITY.get(), "Spirit");
     }
 }

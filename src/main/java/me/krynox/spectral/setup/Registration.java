@@ -1,20 +1,18 @@
 package me.krynox.spectral.setup;
 
 import me.krynox.spectral.Spectral;
-import me.krynox.spectral.block.LeyConduit;
 import me.krynox.spectral.block.SoulMirror;
 import me.krynox.spectral.block.SpectralForge;
-import me.krynox.spectral.block.SpiritLocus;
-import me.krynox.spectral.block.entity.LeyConduitBE;
 import me.krynox.spectral.block.entity.SoulMirrorBE;
 import me.krynox.spectral.block.entity.SpectralForgeBE;
 import me.krynox.spectral.crafting.SpectralForgeRecipe;
 import me.krynox.spectral.datagen.recipe.SpectralForgeRecipeSerializer;
+import me.krynox.spectral.entity.SpiritEntity;
 import me.krynox.spectral.item.SpectralMonocle;
 import me.krynox.spectral.item.SpiritCrystal;
 import me.krynox.spectral.spell.Spell;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -23,6 +21,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.*;
 
@@ -113,15 +112,6 @@ public class Registration {
     //// BLOCKS, BLOCK_ITEMS, BLOCK_ENTITY_TYPES ////
     /////////////////////////////////////////////////
 
-    public static final RegistryObject<Block> LEY_CONDUIT_BLOCK
-            = BLOCKS.register("ley_conduit", LeyConduit::new);
-    public static final RegistryObject<Item> LEY_CONDUIT_ITEM
-            = fromBlock(LEY_CONDUIT_BLOCK);
-    public static final RegistryObject<BlockEntityType<LeyConduitBE>> LEY_CONDUIT_BE
-            = BLOCK_ENTITIES.register("ley_conduit", () -> BlockEntityType.Builder
-                    .of(LeyConduitBE::new, LEY_CONDUIT_BLOCK.get())
-                    .build(null)); //passing null to opt out of datafixer system
-
     public static final RegistryObject<Block> SOUL_MIRROR_BLOCK
             = BLOCKS.register("soul_mirror", SoulMirror::new);
     public static final RegistryObject<Item> SOUL_MIRROR_ITEM
@@ -129,7 +119,7 @@ public class Registration {
     public static final RegistryObject<BlockEntityType<SoulMirrorBE>> SOUL_MIRROR_BE
             = BLOCK_ENTITIES.register("soul_mirror", () -> BlockEntityType.Builder
             .of(SoulMirrorBE::new, SOUL_MIRROR_BLOCK.get())
-            .build(null));
+            .build(null)); //passing null to opt out of datafixers
 
     public static final RegistryObject<Block> SPECTRAL_FORGE_BLOCK
             = BLOCKS.register("spectral_forge", SpectralForge::new);
@@ -140,17 +130,19 @@ public class Registration {
             .of(SpectralForgeBE::new, SPECTRAL_FORGE_BLOCK.get())
             .build(null));
 
-    public static final RegistryObject<Block> SPIRIT_LOCUS_BLOCK
-            = BLOCKS.register("spirit_locus", SpiritLocus::new);
-    public static final RegistryObject<Item> SPIRIT_LOCUS_ITEM
-            = fromBlock(SPIRIT_LOCUS_BLOCK);
-
     //////////////////
     //// ENTITIES ////
     //////////////////
 
     // NB: Don't forget to also register EntityAttributes in CommonSetup for LivingEntities.
 
+    public static final RegistryObject<EntityType<SpiritEntity>> SPIRIT_ENTITY
+            = ENTITIES.register("spirit", () -> EntityType.Builder.of(SpiritEntity::new, MobCategory.MISC)
+            .sized(1f,1f)
+            .build("spirit"));
+
+    public static final RegistryObject<ForgeSpawnEggItem> SPIRIT_SPAWN_EGG_ITEM
+            = ITEMS.register("spirit_spawn_egg", () -> new ForgeSpawnEggItem(SPIRIT_ENTITY, 0xaaffaa, 0xffaaaa, DEFAULT_ITEM_PROPERTIES));
 
     ////////////////
     //// SPELLS ////

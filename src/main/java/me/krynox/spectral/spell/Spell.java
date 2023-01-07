@@ -1,9 +1,17 @@
 package me.krynox.spectral.spell;
 
-import net.minecraft.nbt.CompoundTag;
+import me.krynox.spectral.setup.Registration;
+import net.minecraft.Util;
+import org.jetbrains.annotations.Nullable;
 
 public class Spell {
+    @Nullable
+    private String descriptionId = null;
 
-    // This really ought to have its own registry.
-
+    public String getDescriptionId() {
+        if(this.descriptionId == null) {
+            this.descriptionId = Util.makeDescriptionId("spell", Registration.SPELLS_REEGISTRY.get().getKey(this));
+        }
+        return this.descriptionId;
+    }
 }

@@ -18,10 +18,8 @@ public class ModBlockStates extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-       simpleBlockWithItem(Registration.LEY_CONDUIT_BLOCK.get());
        simpleBlockWithItem(Registration.SOUL_MIRROR_BLOCK.get());
        simpleBlockWithItem(Registration.SPECTRAL_FORGE_BLOCK.get());
-       simpleBlockWithItem(Registration.SPIRIT_LOCUS_BLOCK.get());
 
     }
 }

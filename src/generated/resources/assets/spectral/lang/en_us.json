@@ -1,8 +1,7 @@
 {
-  "block.spectral.ley_conduit": "Ley Conduit",
   "block.spectral.soul_mirror": "Soul Mirror",
   "block.spectral.spectral_forge": "Spectral Forge",
-  "block.spectral.spirit_locus": "Spirit Locus",
+  "entity.spectral.spirit": "Spirit",
   "item.spectral.dark_ecto": "Twilit Ectoplasm",
   "item.spectral.earth_ecto": "Adamantine Ectoplasm",
   "item.spectral.fire_ecto": "Molten Ectoplasm",
@@ -11,6 +10,7 @@
   "item.spectral.lightning_ecto": "Energized Ectoplasm",
   "item.spectral.spectral_monocle": "Spectral Monocle",
   "item.spectral.spirit_crystal": "Spirit Crystal",
+  "item.spectral.spirit_spawn_egg": "Spawn Spirit",
   "item.spectral.water_ecto": "Drowning Ectoplasm",
   "item.spectral.wind_ecto": "Squalling Ectoplasm",
   "spectral.creative_tab.creativetab": "Spectral"

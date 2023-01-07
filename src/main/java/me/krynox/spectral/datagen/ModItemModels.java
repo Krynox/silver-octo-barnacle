@@ -3,7 +3,9 @@ package me.krynox.spectral.datagen;
 import me.krynox.spectral.Spectral;
 import me.krynox.spectral.setup.Registration;
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class ModItemModels extends ItemModelProvider {
@@ -13,6 +15,8 @@ public class ModItemModels extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
+        withExistingParent(Registration.SPIRIT_SPAWN_EGG_ITEM.getId().getPath(), mcLoc("item/template_spawn_egg"));
+
         basicItem(Registration.SPECTRAL_MONOCLE_ITEM.get());
         basicItem(Registration.SPIRIT_CRYSTAL_ITEM.get());
 
