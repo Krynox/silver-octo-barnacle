@@ -11,10 +11,17 @@ import java.util.Map;
 
 public class InvUtils {
 
+    /**
+     * @param inv The inventory, as an IItemHandler
+     * @return A map which associates every Item in the inventory with the total number of times it appears there.
+     */
     public static Map<Item, Integer> countItemsInInv(IItemHandler inv) {
         return countList(invToList(inv).stream().map(ItemStack::getItem).toList());
     }
 
+    /**
+     * Convert an inventory (as an IItemHandler) to a list of item stacks.
+     */
     public static List<ItemStack> invToList(IItemHandler inv) {
         List<ItemStack> l = new ArrayList<>();
 
@@ -25,6 +32,13 @@ public class InvUtils {
         return l;
     }
 
+    /**
+     *
+     * @param list A list of objects.
+     * @return A map which associates every unique item in the list with the total
+     * number of times it appears there (according to Obect#equals via Map#containsKey)
+     * @param <K> The type parameter of the input list
+     */
     public static <K> Map<K, Integer> countList(List<K> list) {
         Map<K, Integer> m = new HashMap<>();
 

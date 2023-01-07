@@ -1,6 +1,6 @@
-package me.krynox.spectral.capability;
+package me.krynox.spectral.spell;
 
-public enum EctoType {
+public enum MagicType {
     FIRE,
     LIGHTNING,
     WIND,

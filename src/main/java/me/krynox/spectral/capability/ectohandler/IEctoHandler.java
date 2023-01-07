@@ -1,15 +1,16 @@
-package me.krynox.spectral.capability;
+package me.krynox.spectral.capability.ectohandler;
 
+import me.krynox.spectral.spell.MagicType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.capabilities.AutoRegisterCapability;
 
 @AutoRegisterCapability
 public interface IEctoHandler {
 
-    int get(EctoType type);
+    int get(MagicType type);
 
     //Must return this.
-    IEctoHandler set(EctoType type, int x);
+    IEctoHandler set(MagicType type, int x);
 
     // Implementations must be serializable to NBT.
     CompoundTag serialize();
@@ -17,7 +18,11 @@ public interface IEctoHandler {
     //Implementations must be mutable, and allow for updating all data from an NBT tag.
     void deserialize(CompoundTag tag);
 
-    default IEctoHandler add(EctoType type, int x) {
+    /////////////////////
+    // Default methods //
+    /////////////////////
+
+    default IEctoHandler add(MagicType type, int x) {
         return set(type, x + get(type));
     }
 

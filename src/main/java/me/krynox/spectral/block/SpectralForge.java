@@ -2,7 +2,7 @@ package me.krynox.spectral.block;
 
 import me.krynox.spectral.Spectral;
 import me.krynox.spectral.block.entity.SpectralForgeBE;
-import me.krynox.spectral.capability.IEctoHandler;
+import me.krynox.spectral.capability.ectohandler.IEctoHandler;
 import me.krynox.spectral.capability.SpectralCapabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -18,7 +18,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.Nullable;
 
-import static me.krynox.spectral.capability.EctoType.FIRE;
+import static me.krynox.spectral.spell.MagicType.FIRE;
 
 public class SpectralForge extends Block implements EntityBlock {
     public SpectralForge() {

@@ -12,6 +12,8 @@ import me.krynox.spectral.crafting.SpectralForgeRecipe;
 import me.krynox.spectral.datagen.recipe.SpectralForgeRecipeSerializer;
 import me.krynox.spectral.item.SpectralMonocle;
 import me.krynox.spectral.item.SpiritCrystal;
+import me.krynox.spectral.spell.Spell;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -22,9 +24,9 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraftforge.registries.*;
+
+import java.util.function.Supplier;
 
 public class Registration {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Spectral.MODID);
@@ -34,6 +36,10 @@ public class Registration {
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, Spectral.MODID);
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Spectral.MODID);
 
+    //Custom registries; a DeferredRegister to use in this class, and then the actual registry constructed from it.
+    public static final DeferredRegister<Spell> SPELLS = DeferredRegister.create(Spectral.resLoc("spells_registy"), Spectral.MODID);
+    public static final Supplier<IForgeRegistry<Spell>> SPELLS_REEGISTRY = SPELLS.makeRegistry(RegistryBuilder::new);
+
     public static void registerAll(IEventBus bus) {
         BLOCKS.register(bus);
         ITEMS.register(bus);
@@ -41,6 +47,7 @@ public class Registration {
         BLOCK_ENTITIES.register(bus);
         RECIPE_TYPES.register(bus);
         RECIPE_SERIALIZERS.register(bus);
+        SPELLS.register(bus);
     }
 
     public static final BlockBehaviour.Properties DEFAULT_BLOCK_PROPERTIES = BlockBehaviour.Properties.of(Material.STONE).strength(2f).requiresCorrectToolForDrops();
@@ -145,4 +152,10 @@ public class Registration {
     // NB: Don't forget to also register EntityAttributes in CommonSetup for LivingEntities.
 
 
+    ////////////////
+    //// SPELLS ////
+    ////////////////
+
+    public static final RegistryObject<Spell> TEST_SPELL
+        = SPELLS.register("test_spell", Spell::new);
 }

@@ -1,6 +1,6 @@
 package me.krynox.spectral.crafting;
 
-import me.krynox.spectral.capability.EctoType;
+import me.krynox.spectral.spell.MagicType;
 import me.krynox.spectral.setup.Registration;
 import me.krynox.spectral.util.InvUtils;
 import net.minecraft.resources.ResourceLocation;
@@ -38,14 +38,14 @@ public class SpectralForgeRecipe implements Recipe<EctoInvRecipeWrapper> {
 
     @Override
     public boolean matches(EctoInvRecipeWrapper inputs, Level level) {
-        return inputs.ectoHandler.get(EctoType.FIRE) >= fireCost
-                && inputs.ectoHandler.get(EctoType.LIGHTNING) >= lightningCost
-                && inputs.ectoHandler.get(EctoType.WIND) >= windCost
-                && inputs.ectoHandler.get(EctoType.EARTH) >= earthCost
-                && inputs.ectoHandler.get(EctoType.WATER) >= waterCost
-                && inputs.ectoHandler.get(EctoType.ICE) >= iceCost
-                && inputs.ectoHandler.get(EctoType.LIGHT) >= lightCost
-                && inputs.ectoHandler.get(EctoType.DARK) >= darkCost
+        return inputs.ectoHandler.get(MagicType.FIRE) >= fireCost
+                && inputs.ectoHandler.get(MagicType.LIGHTNING) >= lightningCost
+                && inputs.ectoHandler.get(MagicType.WIND) >= windCost
+                && inputs.ectoHandler.get(MagicType.EARTH) >= earthCost
+                && inputs.ectoHandler.get(MagicType.WATER) >= waterCost
+                && inputs.ectoHandler.get(MagicType.ICE) >= iceCost
+                && inputs.ectoHandler.get(MagicType.LIGHT) >= lightCost
+                && inputs.ectoHandler.get(MagicType.DARK) >= darkCost
                 && inputs.getItem(0).is(centralItem)
                 && inputs.hasAll(InvUtils.countList(infusionItems));
     }

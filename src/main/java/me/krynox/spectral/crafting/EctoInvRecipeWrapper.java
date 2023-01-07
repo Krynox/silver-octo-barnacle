@@ -1,6 +1,6 @@
 package me.krynox.spectral.crafting;
 
-import me.krynox.spectral.capability.IEctoHandler;
+import me.krynox.spectral.capability.ectohandler.IEctoHandler;
 import me.krynox.spectral.util.InvUtils;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.items.IItemHandlerModifiable;

@@ -1,7 +1,7 @@
 package me.krynox.spectral.block.entity;
 
-import me.krynox.spectral.capability.EctoHandlerImpl;
-import me.krynox.spectral.capability.IEctoHandler;
+import me.krynox.spectral.capability.ectohandler.EctoHandlerImpl;
+import me.krynox.spectral.capability.ectohandler.IEctoHandler;
 import me.krynox.spectral.capability.SpectralCapabilities;
 import me.krynox.spectral.crafting.EctoInvRecipeWrapper;
 import me.krynox.spectral.crafting.SpectralForgeRecipe;
@@ -18,7 +18,6 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

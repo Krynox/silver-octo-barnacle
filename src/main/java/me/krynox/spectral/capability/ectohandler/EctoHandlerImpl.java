@@ -1,6 +1,7 @@
-package me.krynox.spectral.capability;
+package me.krynox.spectral.capability.ectohandler;
 
 import me.krynox.spectral.Spectral;
+import me.krynox.spectral.spell.MagicType;
 import net.minecraft.nbt.CompoundTag;
 
 public class EctoHandlerImpl implements IEctoHandler {
@@ -14,7 +15,7 @@ public class EctoHandlerImpl implements IEctoHandler {
     int dark = 0;
 
     @Override
-    public int get(EctoType type) {
+    public int get(MagicType type) {
         int result = 0;
 
         switch (type){
@@ -33,7 +34,7 @@ public class EctoHandlerImpl implements IEctoHandler {
     }
 
     @Override
-    public IEctoHandler set(EctoType type, int x) {
+    public IEctoHandler set(MagicType type, int x) {
         Spectral.LOGGER.info("Fire then: " + fire + ", adding " + x);
         switch (type) {
             case FIRE -> fire = x;
