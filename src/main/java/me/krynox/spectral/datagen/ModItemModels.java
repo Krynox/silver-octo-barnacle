@@ -15,7 +15,14 @@ public class ModItemModels extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        withExistingParent(Registration.SPIRIT_SPAWN_EGG_ITEM.getId().getPath(), mcLoc("item/template_spawn_egg"));
+        withExistingParent(Registration.FIRE_SPIRIT_SPAWN_EGG_ITEM.getId().getPath(), mcLoc("item/template_spawn_egg"));
+        withExistingParent(Registration.LIGHTNING_SPIRIT_SPAWN_EGG_ITEM.getId().getPath(), mcLoc("item/template_spawn_egg"));
+        withExistingParent(Registration.WIND_SPIRIT_SPAWN_EGG_ITEM.getId().getPath(), mcLoc("item/template_spawn_egg"));
+        withExistingParent(Registration.EARTH_SPIRIT_SPAWN_EGG_ITEM.getId().getPath(), mcLoc("item/template_spawn_egg"));
+        withExistingParent(Registration.WATER_SPIRIT_SPAWN_EGG_ITEM.getId().getPath(), mcLoc("item/template_spawn_egg"));
+        withExistingParent(Registration.ICE_SPIRIT_SPAWN_EGG_ITEM.getId().getPath(), mcLoc("item/template_spawn_egg"));
+        withExistingParent(Registration.LIGHT_SPIRIT_SPAWN_EGG_ITEM.getId().getPath(), mcLoc("item/template_spawn_egg"));
+        withExistingParent(Registration.DARK_SPIRIT_SPAWN_EGG_ITEM.getId().getPath(), mcLoc("item/template_spawn_egg"));
 
         basicItem(Registration.SPECTRAL_MONOCLE_ITEM.get());
         basicItem(Registration.SPIRIT_CRYSTAL_ITEM.get());

@@ -29,7 +29,7 @@ displayName="Spectral" #mandatory
 # A file name (in the root of the mod JAR) containing a logo for display
 logoFile="" #optional
 # A text field displayed in the mod UI
-credits="Programming and design by Krynox, textures and design by Kytuz." #optional
+credits="" #optional
 # A text field displayed in the mod UI
 authors="Krynox, Kytuz" #optional
 # Display Test controls the display for your mod in the server connection screen

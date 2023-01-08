@@ -5,7 +5,7 @@ plugins {
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
 
-version = '1.0'
+version = '0.0.1'
 group = 'me.krynox.spectral' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'spectral'
 
@@ -137,7 +137,7 @@ dependencies {
     // Specify the version of Minecraft to use. If this is any group other than 'net.minecraft', it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency, and its patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.19.3-44.0.37'
+    minecraft 'net.minecraftforge:forge:1.19.3-44.1.2'
 
     // Still no JEI O.o
     //compileOnly fg.deobf("mezz.jei:jei-${jei_version}:api")
@@ -147,7 +147,7 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:TheOneProbe-245211:4159743")
 
     // GECKOLIB
-    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.19.3:4.0.2')
+    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.19.3:4.0.3')
 }
 
 // Example for how to get properties into the manifest for reading at runtime.

@@ -38,7 +38,14 @@ public class ModEnglishLanguageProvider extends LanguageProvider {
     protected void addTranslations() {
         add(Spectral.MODID + ".creative_tab.creativetab", "Spectral");
 
-        add(Registration.SPIRIT_SPAWN_EGG_ITEM.get(), "Spawn Spirit");
+        add(Registration.FIRE_SPIRIT_SPAWN_EGG_ITEM.get(), "Spawn Fire Spirit");
+        add(Registration.LIGHTNING_SPIRIT_SPAWN_EGG_ITEM.get(), "Spawn Lightning Spirit");
+        add(Registration.WIND_SPIRIT_SPAWN_EGG_ITEM.get(), "Spawn Wind Spirit");
+        add(Registration.EARTH_SPIRIT_SPAWN_EGG_ITEM.get(), "Spawn Earth Spirit");
+        add(Registration.WATER_SPIRIT_SPAWN_EGG_ITEM.get(), "Spawn Water Spirit");
+        add(Registration.ICE_SPIRIT_SPAWN_EGG_ITEM.get(), "Spawn Ice Spirit");
+        add(Registration.LIGHT_SPIRIT_SPAWN_EGG_ITEM.get(), "Spawn Light Spirit");
+        add(Registration.DARK_SPIRIT_SPAWN_EGG_ITEM.get(), "Spawn Dark Spirit");
 
         add(Registration.SOUL_MIRROR_BLOCK.get(), "Soul Mirror");
         add(Registration.SPECTRAL_FORGE_BLOCK.get(), "Spectral Forge");
@@ -55,6 +62,13 @@ public class ModEnglishLanguageProvider extends LanguageProvider {
         add(Registration.DARK_ECTO_ITEM.get(), "Twilit Ectoplasm");
         add(Registration.LIGHT_ECTO_ITEM.get(), "Refulgent Ectoplasm");
 
-        add(Registration.SPIRIT_ENTITY.get(), "Spirit");
+        add(Registration.FIRE_SPIRIT_ENTITY.get(), "Fire Spirit");
+        add(Registration.LIGHTNING_SPIRIT_ENTITY.get(), "Lightning Spirit");
+        add(Registration.WIND_SPIRIT_ENTITY.get(), "Wind Spirit");
+        add(Registration.EARTH_SPIRIT_ENTITY.get(), "Earth Spirit");
+        add(Registration.WATER_SPIRIT_ENTITY.get(), "Water Spirit");
+        add(Registration.ICE_SPIRIT_ENTITY.get(), "Ice Spirit");
+        add(Registration.LIGHT_SPIRIT_ENTITY.get(), "Light Spirit");
+        add(Registration.DARK_SPIRIT_ENTITY.get(), "Dark Spirit");
     }
 }

@@ -17,6 +17,13 @@ public class CommonSetup {
 
     @SubscribeEvent
     public static void registerEntityAttributes(EntityAttributeCreationEvent e) {
-        e.put(Registration.SPIRIT_ENTITY.get(), Mob.createMobAttributes().build());
+        e.put(Registration.FIRE_SPIRIT_ENTITY.get(), Mob.createMobAttributes().build());
+        e.put(Registration.LIGHTNING_SPIRIT_ENTITY.get(), Mob.createMobAttributes().build());
+        e.put(Registration.WIND_SPIRIT_ENTITY.get(), Mob.createMobAttributes().build());
+        e.put(Registration.EARTH_SPIRIT_ENTITY.get(), Mob.createMobAttributes().build());
+        e.put(Registration.WATER_SPIRIT_ENTITY.get(), Mob.createMobAttributes().build());
+        e.put(Registration.ICE_SPIRIT_ENTITY.get(), Mob.createMobAttributes().build());
+        e.put(Registration.LIGHT_SPIRIT_ENTITY.get(), Mob.createMobAttributes().build());
+        e.put(Registration.DARK_SPIRIT_ENTITY.get(), Mob.createMobAttributes().build());
     }
 }

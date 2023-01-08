@@ -12,6 +12,8 @@ import me.krynox.spectral.item.SpectralMonocle;
 import me.krynox.spectral.item.SpiritCrystal;
 import me.krynox.spectral.spell.Spell;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -65,6 +67,10 @@ public class Registration {
 
     public static RegistryObject<Item> newDefaultItem(String name) {
         return ITEMS.register(name, () -> new Item(DEFAULT_ITEM_PROPERTIES));
+    }
+
+    public static RegistryObject<ForgeSpawnEggItem> spawnEgg(String name, Supplier<? extends EntityType<? extends Mob>> e, int backgroundColour, int foreGroundColour) {
+        return ITEMS.register(name, () -> new ForgeSpawnEggItem(e, backgroundColour, foreGroundColour, DEFAULT_ITEM_PROPERTIES));
     }
 
     /////////////////////////////////////////////
@@ -136,13 +142,61 @@ public class Registration {
 
     // NB: Don't forget to also register EntityAttributes in CommonSetup for LivingEntities.
 
-    public static final RegistryObject<EntityType<SpiritEntity>> SPIRIT_ENTITY
-            = ENTITIES.register("spirit", () -> EntityType.Builder.of(SpiritEntity::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<SpiritEntity>> FIRE_SPIRIT_ENTITY
+            = ENTITIES.register("fire_spirit", () -> EntityType.Builder.of(SpiritEntity::new, MobCategory.MISC)
             .sized(1f,1f)
-            .build("spirit"));
+            .build("fire_spirit"));
+    public static final RegistryObject<ForgeSpawnEggItem> FIRE_SPIRIT_SPAWN_EGG_ITEM
+            = spawnEgg("fire_spirit", FIRE_SPIRIT_ENTITY, 0xee4444, 0xff6666);
 
-    public static final RegistryObject<ForgeSpawnEggItem> SPIRIT_SPAWN_EGG_ITEM
-            = ITEMS.register("spirit_spawn_egg", () -> new ForgeSpawnEggItem(SPIRIT_ENTITY, 0xaaffaa, 0xffaaaa, DEFAULT_ITEM_PROPERTIES));
+    public static final RegistryObject<EntityType<SpiritEntity>> LIGHTNING_SPIRIT_ENTITY
+            = ENTITIES.register("lightning_spirit", () -> EntityType.Builder.of(SpiritEntity::new, MobCategory.MISC)
+            .sized(1f,1f)
+            .build("lightning_spirit"));
+    public static final RegistryObject<ForgeSpawnEggItem> LIGHTNING_SPIRIT_SPAWN_EGG_ITEM
+            = spawnEgg("lightning_spirit", LIGHTNING_SPIRIT_ENTITY, 0xee4444, 0xff6666);
+
+    public static final RegistryObject<EntityType<SpiritEntity>> WIND_SPIRIT_ENTITY
+            = ENTITIES.register("wind_spirit", () -> EntityType.Builder.of(SpiritEntity::new, MobCategory.MISC)
+            .sized(1f,1f)
+            .build("wind_spirit"));
+    public static final RegistryObject<ForgeSpawnEggItem> WIND_SPIRIT_SPAWN_EGG_ITEM
+            = spawnEgg("wind_spirit", WIND_SPIRIT_ENTITY, 0xee4444, 0xff6666);
+
+    public static final RegistryObject<EntityType<SpiritEntity>> EARTH_SPIRIT_ENTITY
+            = ENTITIES.register("earth_spirit", () -> EntityType.Builder.of(SpiritEntity::new, MobCategory.MISC)
+            .sized(1f,1f)
+            .build("earth_spirit"));
+    public static final RegistryObject<ForgeSpawnEggItem> EARTH_SPIRIT_SPAWN_EGG_ITEM
+            = spawnEgg("earth_spirit", EARTH_SPIRIT_ENTITY, 0xee4444, 0xff6666);
+
+    public static final RegistryObject<EntityType<SpiritEntity>> WATER_SPIRIT_ENTITY
+            = ENTITIES.register("water_spirit", () -> EntityType.Builder.of(SpiritEntity::new, MobCategory.MISC)
+            .sized(1f,1f)
+            .build("water_spirit"));
+    public static final RegistryObject<ForgeSpawnEggItem> WATER_SPIRIT_SPAWN_EGG_ITEM
+            = spawnEgg("water_spirit", WATER_SPIRIT_ENTITY, 0xee4444, 0xff6666);
+
+    public static final RegistryObject<EntityType<SpiritEntity>> ICE_SPIRIT_ENTITY
+            = ENTITIES.register("ice_spirit", () -> EntityType.Builder.of(SpiritEntity::new, MobCategory.MISC)
+            .sized(1f,1f)
+            .build("ice_spirit"));
+    public static final RegistryObject<ForgeSpawnEggItem> ICE_SPIRIT_SPAWN_EGG_ITEM
+            = spawnEgg("ice_spirit", ICE_SPIRIT_ENTITY, 0xee4444, 0xff6666);
+
+    public static final RegistryObject<EntityType<SpiritEntity>> LIGHT_SPIRIT_ENTITY
+            = ENTITIES.register("light_spirit", () -> EntityType.Builder.of(SpiritEntity::new, MobCategory.MISC)
+            .sized(1f,1f)
+            .build("light_spirit"));
+    public static final RegistryObject<ForgeSpawnEggItem> LIGHT_SPIRIT_SPAWN_EGG_ITEM
+            = spawnEgg("light_spirit", LIGHT_SPIRIT_ENTITY, 0xee4444, 0xff6666);
+
+    public static final RegistryObject<EntityType<SpiritEntity>> DARK_SPIRIT_ENTITY
+            = ENTITIES.register("dark_spirit", () -> EntityType.Builder.of(SpiritEntity::new, MobCategory.MISC)
+            .sized(1f,1f)
+            .build("dark_spirit"));
+    public static final RegistryObject<ForgeSpawnEggItem> DARK_SPIRIT_SPAWN_EGG_ITEM
+            = spawnEgg("dark_spirit", DARK_SPIRIT_ENTITY, 0xee4444, 0xff6666);
 
     ////////////////
     //// SPELLS ////

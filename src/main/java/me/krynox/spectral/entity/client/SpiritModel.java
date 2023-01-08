@@ -2,10 +2,15 @@ package me.krynox.spectral.entity.client;
 
 import me.krynox.spectral.Spectral;
 import me.krynox.spectral.entity.SpiritEntity;
+import me.krynox.spectral.spell.MagicType;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 
 public class SpiritModel extends GeoModel<SpiritEntity> {
+    private String type;
+    public SpiritModel(MagicType type) {
+        this.type = type.toString().toLowerCase();
+    }
     @Override
     public ResourceLocation getModelResource(SpiritEntity animatable) {
         return Spectral.resLoc("geo/spirit.geo.json");
@@ -13,7 +18,7 @@ public class SpiritModel extends GeoModel<SpiritEntity> {
 
     @Override
     public ResourceLocation getTextureResource(SpiritEntity animatable) {
-        return Spectral.resLoc("textures/entity/spirit.png");
+        return Spectral.resLoc("textures/entity/" + type + "_spirit.png");
     }
 
     @Override
