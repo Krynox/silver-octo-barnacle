@@ -7,12 +7,12 @@ import me.krynox.spectral.block.entity.SoulMirrorBE;
 import me.krynox.spectral.block.entity.SpectralForgeBE;
 import me.krynox.spectral.crafting.SpectralForgeRecipe;
 import me.krynox.spectral.datagen.recipe.SpectralForgeRecipeSerializer;
+import me.krynox.spectral.entity.LeyRiftEntity;
 import me.krynox.spectral.entity.SpiritEntity;
 import me.krynox.spectral.item.SpectralMonocle;
 import me.krynox.spectral.item.SpiritCrystal;
 import me.krynox.spectral.spell.Spell;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.BlockItem;
@@ -141,6 +141,10 @@ public class Registration {
     //////////////////
 
     // NB: Don't forget to also register EntityAttributes in CommonSetup for LivingEntities.
+
+    public static final RegistryObject<EntityType<LeyRiftEntity>> LEY_RIFT_ENTITY
+            = ENTITIES.register("ley_rift", () -> EntityType.Builder.of(LeyRiftEntity::new, MobCategory.MISC)
+            .build("ley_rift"));
 
     public static final RegistryObject<EntityType<SpiritEntity>> FIRE_SPIRIT_ENTITY
             = ENTITIES.register("fire_spirit", () -> EntityType.Builder.of(SpiritEntity::new, MobCategory.MISC)

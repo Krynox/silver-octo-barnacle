@@ -2,6 +2,7 @@ package me.krynox.spectral.entity;
 
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.Level;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.constant.DefaultAnimations;
@@ -25,5 +26,11 @@ public class SpiritEntity extends Mob implements GeoEntity {
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return cache;
+    }
+
+    public static SpawnPlacements.SpawnPredicate<SpiritEntity> spawnPredicate() {
+        return (pEntityType, pServerLevel, pSpawnType, pPos, pRandom) -> {
+            return true;
+        };
     }
 }

@@ -1,6 +1,7 @@
 package me.krynox.spectral.setup;
 
 import me.krynox.spectral.Spectral;
+import me.krynox.spectral.entity.client.LeyRiftRenderer;
 import me.krynox.spectral.entity.client.SpiritRenderer;
 import me.krynox.spectral.spell.MagicType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -13,6 +14,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 public class ClientSetup {
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
+        EntityRenderers.register(Registration.LEY_RIFT_ENTITY.get(), LeyRiftRenderer::new);
+
         EntityRenderers.register(Registration.FIRE_SPIRIT_ENTITY.get(), (x) ->
                 new SpiritRenderer(x, MagicType.FIRE));
 
