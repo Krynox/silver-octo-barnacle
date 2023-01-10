@@ -1,4 +1,4 @@
-package me.krynox.spectral.localisation;
+package me.krynox.spectral.util;
 
 public enum LocalisedTextCategory {
     ITEM,

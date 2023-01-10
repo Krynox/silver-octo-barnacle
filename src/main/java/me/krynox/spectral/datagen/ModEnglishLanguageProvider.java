@@ -1,6 +1,7 @@
 package me.krynox.spectral.datagen;
 
 import me.krynox.spectral.Spectral;
+import me.krynox.spectral.client.keybind.Keybinds;
 import me.krynox.spectral.setup.Registration;
 import me.krynox.spectral.spell.Spell;
 import net.minecraft.data.PackOutput;
@@ -37,6 +38,7 @@ public class ModEnglishLanguageProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         add(Spectral.MODID + ".creative_tab.creativetab", "Spectral");
+        add(Keybinds.SPECTRAL_KEYBIND_CATEGORY, "Spectral");
 
         add(Registration.FIRE_SPIRIT_SPAWN_EGG_ITEM.get(), "Spawn Fire Spirit");
         add(Registration.LIGHTNING_SPIRIT_SPAWN_EGG_ITEM.get(), "Spawn Lightning Spirit");

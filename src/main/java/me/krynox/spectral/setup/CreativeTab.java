@@ -1,13 +1,13 @@
 package me.krynox.spectral.setup;
 
 import me.krynox.spectral.Spectral;
-import me.krynox.spectral.localisation.LocalisationHelper;
+import me.krynox.spectral.util.LocalisationHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import static me.krynox.spectral.localisation.LocalisedTextCategory.CREATIVE_TAB;
+import static me.krynox.spectral.util.LocalisedTextCategory.CREATIVE_TAB;
 
 @Mod.EventBusSubscriber(modid = Spectral.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CreativeTab {
