@@ -1,0 +1,8 @@
+{
+    "vertex": "spectral:test_shader",
+    "fragment": "spectral:test_shader",
+    "attributes": [
+        "Position",
+        "fragColor"
+    ]
+}

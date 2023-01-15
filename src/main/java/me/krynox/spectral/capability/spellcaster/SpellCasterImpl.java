@@ -4,6 +4,7 @@ import me.krynox.spectral.Spectral;
 import me.krynox.spectral.setup.Registration;
 import me.krynox.spectral.spell.Spell;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
@@ -73,9 +74,9 @@ public class SpellCasterImpl implements ISpellCaster {
         if(player instanceof ServerPlayer && level instanceof ServerLevel) {
             Spectral.LOGGER.debug("Server casting " + slot);
             s.castServer((ServerPlayer) player, (ServerLevel) level);
-        } else if(level instanceof ClientLevel) {
+        } else if(player instanceof LocalPlayer && level instanceof ClientLevel) {
             Spectral.LOGGER.debug("Client casting " + slot);
-            s.castClient(player, (ClientLevel) level);
+            s.castClient((LocalPlayer) player, (ClientLevel) level);
         }
     }
 

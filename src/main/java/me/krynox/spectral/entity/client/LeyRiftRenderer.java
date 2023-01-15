@@ -21,7 +21,6 @@ import net.minecraft.resources.ResourceLocation;
 
 public class LeyRiftRenderer extends EntityRenderer<LeyRiftEntity> {
 
-
     public LeyRiftRenderer(EntityRendererProvider.Context pContext) {
         super(pContext);
     }
@@ -34,21 +33,22 @@ public class LeyRiftRenderer extends EntityRenderer<LeyRiftEntity> {
     @Override
     public void render(LeyRiftEntity pEntity, float pEntityYaw, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight) {
     	pPoseStack.pushPose();
-    	
-    	RenderType rt = SpectralRenderTypes.TEST(new ResourceLocation("minecraft:textures/block/dirt.png"));
+
+    	RenderType rt = SpectralRenderTypes.TEST();
     	rt.setupRenderState();
     	VertexConsumer buf = pBuffer.getBuffer(rt);
-    	
-    	//buf.vertex(-0.5f, -0.5f, 0, 1, 0.5f, 0.5f, 1, 0, 0, 0, 0, 0, 0, 1);
-    	//buf.vertex(-0.5f, 0.5f, 0, 1, 0.5f, 0.5f, 1, 0, 1, 0, 0, 0, 0, 1);
-    	//buf.vertex(0.5f, 0.5f, 0, 1, 0.5f, 0.5f, 1, 1, 1, 0, 0, 0, 0, 1);
-    	//buf.vertex(0.5f, -0.5f, 0, 1, 0.5f, 0.5f, 1, 1, 0, 0, 0, 0, 0, 1);
+
+        buf.vertex(-0.5f, -0.5f, 0f).endVertex();
+        buf.vertex(-0.5f, 0.5f, 0f).endVertex();
+        buf.vertex(0.5f, 0.5f, 0f).endVertex();
+        buf.vertex(0.5f, -0.5f, 0f).endVertex();
+
     	pPoseStack.popPose();
-    	
+
     	//super.render(pEntity, pEntityYaw, pPartialTick, pPoseStack, pBuffer, pPackedLight);
     }
 
-    // probably shouldn't be called, right?
+    //it doesn't have a texture, so the superclass insisting on this being defined is weird.
     @Override
     public ResourceLocation getTextureLocation(LeyRiftEntity pEntity) {
         Spectral.LOGGER.error("Tried to get texture location for ley rift renderer, returning null. Something might break.");

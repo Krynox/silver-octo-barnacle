@@ -2,6 +2,7 @@ package me.krynox.spectral.client.rendering;
 
 import java.io.IOException;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
@@ -13,17 +14,20 @@ import net.minecraft.client.renderer.RenderStateShard.ShaderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterShadersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
+@Mod.EventBusSubscriber(modid = Spectral.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class SpectralRenderTypes {
-	public static RenderType TEST(ResourceLocation texture) {
-		return RenderTypes.TEST.apply(texture); // return the memoized version
+	public static RenderType TEST() {
+		return RenderTypes.TEST.get();
 	}
 	
     @SubscribeEvent
     public static void registerShaders(RegisterShadersEvent event) throws IOException {
-    	event.registerShader(new ShaderInstance(event.getResourceProvider(), Spectral.resLoc("shaders/test_shader"), DefaultVertexFormat.NEW_ENTITY), 
+    	event.registerShader(new ShaderInstance(event.getResourceProvider(), Spectral.resLoc("test_shader"), DefaultVertexFormat.NEW_ENTITY),
     			(shaderInstance) -> {
     				RenderTypes.testShader = shaderInstance;
     			});
@@ -31,8 +35,7 @@ public class SpectralRenderTypes {
     
 	private static class RenderTypes extends RenderType {
         //dummy constructor, don't use
-		private RenderTypes(String s, VertexFormat v, VertexFormat.Mode m, int i, boolean b, boolean b2, Runnable r, Runnable r2)
-        {
+		private RenderTypes(String s, VertexFormat v, VertexFormat.Mode m, int i, boolean b, boolean b2, Runnable r, Runnable r2) {
             super(s, v, m, i, b, b2, r, r2);
             throw new IllegalStateException("This class is not meant to be constructed!");
         }
@@ -42,18 +45,19 @@ public class SpectralRenderTypes {
 		
 		private static final ShaderStateShard TEST_SHADER = new ShaderStateShard(() -> testShader);
 		
-		// The memoized rendertype functions to actually use
-        public static Function<ResourceLocation, RenderType> TEST = Util.memoize(RenderTypes::test);
+		// The memoized rendertype functions to actually use. (nb: for rendertypes that take a resourcelocation for a texture,
+		// use Util#memoize)
+        public static Supplier<RenderType> TEST = RenderTypes::test;
         
-        private static RenderType test(ResourceLocation texture) {
+        private static RenderType test() {
         	RenderType.CompositeState rendertype$state = RenderType.CompositeState.builder()
         			.setShaderState(TEST_SHADER)
-                    .setTextureState(new RenderStateShard.TextureStateShard(texture, false, false))
                     .setTransparencyState(NO_TRANSPARENCY)
                     .setLightmapState(NO_LIGHTMAP)
                     .setOverlayState(NO_OVERLAY)
+					.setCullState(NO_CULL)
                     .createCompositeState(true);
-            return create("spectral_test", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, false, rendertype$state);
+            return create("spectral_test", DefaultVertexFormat.POSITION, VertexFormat.Mode.QUADS, 256, false, false, rendertype$state);
         }
 
 		
