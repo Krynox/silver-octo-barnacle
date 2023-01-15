@@ -48,8 +48,7 @@ public class ClientSetup {
     
     @SubscribeEvent
     public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
-    	//event.registerAboveAll("spell_hotbar", new SpellHotbarOverlay());
-
+    	event.registerAboveAll("spell_hotbar", new SpellHotbarOverlay());
     	event.registerAboveAll("focus_bar", new FocusBarOverlay());
 
     }

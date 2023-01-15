@@ -8,6 +8,7 @@ import me.krynox.spectral.capability.SpectralCapabilities;
 import me.krynox.spectral.capability.spellcaster.ISpellCaster;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
@@ -17,11 +18,12 @@ public class FocusBarOverlay implements IGuiOverlay {
 	private static final int TEX_HEIGHT = 12;
 	private static final int U_WIDTH = 12;
 	private static final int V_HEIGHT = 12;
+	private static final ResourceLocation TEXTURE = Spectral.resLoc("textures/gui/focus_bar.png");
 
 
 	@Override
 	public void render(ForgeGui gui, PoseStack poseStack, float partialTick, int screenWidth, int screenHeight) {
-    	RenderSystem.setShaderTexture(0, Spectral.resLoc("textures/gui/focus_bar.png"));
+    	RenderSystem.setShaderTexture(0, TEXTURE);
 
     	ISpellCaster cap = gui.getMinecraft().player.getCapability(SpectralCapabilities.SPELL_CASTER).resolve().get();
     	
@@ -34,7 +36,7 @@ public class FocusBarOverlay implements IGuiOverlay {
 		
 		for(int i = 0; i < maxFocus; i++) {
 			renderPip(poseStack, pipToRender(i, focus, maxFocus), x, y);
-			x += 12;
+			x += U_WIDTH;
 		}
 	}
 	

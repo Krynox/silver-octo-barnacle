@@ -27,6 +27,11 @@ public class SpellCasterImpl implements ISpellCaster {
     private Spell[] spells = new Spell[SPELL_SLOTS];
     private boolean spellcastingMode = false;
     private int focus = 0;
+    
+    @Override
+    public int getSpellSlots() {
+    	return SPELL_SLOTS;
+    }
 
     @Override
     public Optional<Spell> getSpell(int slot) {

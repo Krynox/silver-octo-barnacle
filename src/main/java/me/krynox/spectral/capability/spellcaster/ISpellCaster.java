@@ -11,6 +11,8 @@ import java.util.Optional;
 @AutoRegisterCapability
 public interface ISpellCaster {
 
+	int getSpellSlots();
+	
     /**
      * The spell equipped in the specified slot.
      */
