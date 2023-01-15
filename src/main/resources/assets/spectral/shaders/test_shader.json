@@ -1,0 +1,8 @@
+{
+    "vertex": "spectral:shaders/test_shader.vsh",
+    "fragment": "spectral:shaders/test_shader.fsh",
+    "attributes": [
+        "Pos",
+        "FragColor"
+    ]
+}
