@@ -22,9 +22,11 @@ public class SpellCasterImpl implements ISpellCaster {
     }
 
     public static final int SPELL_SLOTS = 6;
-
+    public static final int MAX_FOCUS = 7;
+    
     private Spell[] spells = new Spell[SPELL_SLOTS];
     private boolean spellcastingMode = false;
+    private int focus = 0;
 
     @Override
     public Optional<Spell> getSpell(int slot) {
@@ -93,11 +95,12 @@ public class SpellCasterImpl implements ISpellCaster {
         ListTag spellsTag = new ListTag();
 
         for(Spell spell : spells) {
-            spellsTag.add(StringTag.valueOf(Registration.SPELLS_REEGISTRY.get().getKey(spell).getPath()));
+            if(spell != null) spellsTag.add(StringTag.valueOf(Registration.SPELLS_REEGISTRY.get().getKey(spell).getPath()));
         }
 
         output.putBoolean("spellcastingMode", spellcastingMode);
-        output.put("spells", spellsTag);
+        
+        if(!spellsTag.isEmpty()) output.put("spells", spellsTag);
 
         return output;
     }
@@ -117,4 +120,30 @@ public class SpellCasterImpl implements ISpellCaster {
         this.spells = new Spell[foo.size()];
         foo.toArray(spells); // reminder: old java api, it mutates the array passed in
     }
+
+	@Override
+	public int getFocus() {
+		return focus;
+	}
+
+	@Override
+	public int getMaxFocus() {
+		return MAX_FOCUS;
+	}
+
+	@Override
+	public void setFocus(int focus) {
+		if(focus < 0) {
+			this.focus = 0;
+		} else if(focus > MAX_FOCUS) {
+			this.focus = MAX_FOCUS;
+		} else {
+			this.focus = focus;
+		}
+	}
+
+	@Override
+	public void addFocus(int i) {
+		setFocus(this.focus + i);
+	}
 }

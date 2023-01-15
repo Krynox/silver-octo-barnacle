@@ -19,6 +19,7 @@ public class Keybinds {
     public static Lazy<KeyMapping> SPELLCASTING_MODE_MAPPING = Lazy.of(() ->
             spectralKeyMapping("spellcasting_mode", InputConstants.KEY_C, InputConstants.Type.KEYSYM, IN_GAME));
 
+    /*
     public static Lazy<KeyMapping> SPELL_SLOT_1_MAPPING = Lazy.of(() ->
             spectralKeyMapping("spell_slot_1", InputConstants.MOUSE_BUTTON_LEFT, InputConstants.Type.MOUSE, IN_GAME));
 
@@ -36,16 +37,20 @@ public class Keybinds {
 
     public static Lazy<KeyMapping> SPELL_SLOT_6_MAPPING = Lazy.of(() ->
             spectralKeyMapping("spell_slot_6", InputConstants.KEY_4, InputConstants.Type.KEYSYM, IN_GAME));
-
+	*/
+    
     @SubscribeEvent
     public static void registerKeyMappings(RegisterKeyMappingsEvent event) {
         event.register(SPELLCASTING_MODE_MAPPING.get());
+        
+        /*
         event.register(SPELL_SLOT_1_MAPPING.get());
         event.register(SPELL_SLOT_2_MAPPING.get());
         event.register(SPELL_SLOT_3_MAPPING.get());
         event.register(SPELL_SLOT_4_MAPPING.get());
         event.register(SPELL_SLOT_5_MAPPING.get());
         event.register(SPELL_SLOT_6_MAPPING.get());
+        */
     }
 
     private static KeyMapping spectralKeyMapping(String name, int defaultKey, InputConstants.Type inputType, IKeyConflictContext conflictContext) {

@@ -49,12 +49,17 @@ public interface ISpellCaster {
      */
     void toggleSpellcastingMode();
 
-    // Mana?
-    // The ecto-as-mana idea?
     // Should slots/spells be tiered?
     // Should you have to attune slots to a particular type?
 
+    int getFocus();
+    
+    int getMaxFocus();
+    
+    void setFocus(int focus);
 
+    void addFocus(int i);
+        
     CompoundTag serialize();
     void deserialize(CompoundTag tag);
 }
