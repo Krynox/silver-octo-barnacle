@@ -144,6 +144,7 @@ public class Registration {
 
     public static final RegistryObject<EntityType<LeyRiftEntity>> LEY_RIFT_ENTITY
             = ENTITIES.register("ley_rift", () -> EntityType.Builder.of(LeyRiftEntity::new, MobCategory.MISC)
+            .sized(2,2)
             .build("ley_rift"));
 
     public static final RegistryObject<EntityType<SpiritEntity>> FIRE_SPIRIT_ENTITY
@@ -162,7 +163,7 @@ public class Registration {
 
     public static final RegistryObject<EntityType<SpiritEntity>> WIND_SPIRIT_ENTITY
             = ENTITIES.register("wind_spirit", () -> EntityType.Builder.of(SpiritEntity::new, MobCategory.MISC)
-            .sized(1f,1f)
+            .sized(1.5f,1.5f)
             .build("wind_spirit"));
     public static final RegistryObject<ForgeSpawnEggItem> WIND_SPIRIT_SPAWN_EGG_ITEM
             = spawnEgg("wind_spirit", WIND_SPIRIT_ENTITY, 0xee4444, 0xff6666);

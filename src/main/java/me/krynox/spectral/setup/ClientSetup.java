@@ -34,7 +34,8 @@ public class ClientSetup {
                 new SpiritRenderer(x, MagicType.LIGHTNING));
 
         EntityRenderers.register(Registration.WIND_SPIRIT_ENTITY.get(), (x) ->
-                new SpiritRenderer(x, MagicType.WIND));
+                new SpiritRenderer(x, MagicType.WIND)
+                        .withScale(3f));
 
         EntityRenderers.register(Registration.EARTH_SPIRIT_ENTITY.get(), (x) ->
                 new SpiritRenderer(x, MagicType.EARTH));

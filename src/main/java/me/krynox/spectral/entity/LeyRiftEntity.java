@@ -11,6 +11,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.BaseSpawner;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 public class LeyRiftEntity extends Entity {
 
@@ -33,11 +35,11 @@ public class LeyRiftEntity extends Entity {
 
     @Override
     public void tick() {
-        if(level.isClientSide) {
-            spawner.clientTick(level, getOnPos().offset(0, 0.5d, 0));
-        } else {
-            spawner.serverTick((ServerLevel) level, getOnPos().offset(0, 0.5d, 0));
-        }
+        spawn();
+
+        level.getEntities(this, this.getBoundingBox().inflate(6),
+                        (e) -> !(e instanceof LeyRiftEntity || e instanceof SpiritEntity) && e.distanceToSqr(this) < 8)
+                .forEach(e -> repelEntity(this, e));
 
         super.tick();
     }
@@ -56,5 +58,23 @@ public class LeyRiftEntity extends Entity {
     protected void addAdditionalSaveData(CompoundTag tag) {
         this.spawner.save(tag);
 
+    }
+
+    private void spawn() {
+        if(!level.isClientSide
+            && level.getEntities(this, this.getBoundingBox().inflate(16), (e) -> (e instanceof SpiritEntity))
+                    .size() < 5) {
+            //spawner.serverTick((ServerLevel) level, getOnPos().offset(0, 0.5d, 0));
+        }
+        //cant do this any more because we aren't firing server tick every time?
+        //spawner.clientTick(level, getOnPos().offset(0, 0.5d, 0));
+    }
+
+
+    private static void repelEntity(Entity rift, Entity entity) {
+        Vec3 toRift = entity.position().subtract(rift.position());
+        double dist = toRift.length();
+
+        entity.setDeltaMovement(entity.getDeltaMovement().add(toRift.scale(0.09 / dist)));
     }
 }

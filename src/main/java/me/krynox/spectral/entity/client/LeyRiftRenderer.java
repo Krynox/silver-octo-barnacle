@@ -54,7 +54,15 @@ public class LeyRiftRenderer extends EntityRenderer<LeyRiftEntity> {
         // the angle to rotate the plane by is the angle between these two vectors.
         // except the position vectors only update every tick, while we need to draw every frame.
         // so also get the angle for last tick, and lerp between them
-        float angle = Math.lerp(toRiftOld.angle(normal), toRiftXZ.angle(normal), pPartialTick);
+        float angleOld = toRiftOld.angle(normal);
+        float angleNew = toRiftXZ.angle(normal);
+        float diff = angleOld - angleNew;
+        if(diff > 1) {
+            angleNew += Math.PI * 2;
+        } else if (diff < -1) {
+            angleOld += Math.PI * 2;
+        }
+        float angle = Math.lerp(angleOld, angleNew, pPartialTick);
 
         //rotate around the z axis so that the plane always faces the player
         pPoseStack.mulPose(new Quaternionf().rotateLocalY(angle));
