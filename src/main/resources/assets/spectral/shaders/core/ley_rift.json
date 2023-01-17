@@ -1,6 +1,6 @@
 {
-    "vertex": "spectral:test_shader",
-    "fragment": "spectral:test_shader",
+    "vertex": "spectral:ley_rift",
+    "fragment": "spectral:ley_rift",
     "attributes": [
         "Position",
         "fragColor"

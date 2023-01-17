@@ -21,15 +21,13 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = Spectral.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class SpectralRenderTypes {
-	public static RenderType TEST() {
-		return RenderTypes.TEST.get();
-	}
-	
+	public static RenderType LEY_RIFT = RenderTypes.LEY_RIFT.get();
+
     @SubscribeEvent
     public static void registerShaders(RegisterShadersEvent event) throws IOException {
-    	event.registerShader(new ShaderInstance(event.getResourceProvider(), Spectral.resLoc("test_shader"), DefaultVertexFormat.NEW_ENTITY),
+    	event.registerShader(new ShaderInstance(event.getResourceProvider(), Spectral.resLoc("ley_rift"), DefaultVertexFormat.NEW_ENTITY),
     			(shaderInstance) -> {
-    				RenderTypes.testShader = shaderInstance;
+    				RenderTypes.leyRiftShader = shaderInstance;
     			});
     }
     
@@ -41,23 +39,23 @@ public class SpectralRenderTypes {
         }
 		
 		//the shader instance. populated after the registered shader is loaded.
-		private static ShaderInstance testShader;
+		private static ShaderInstance leyRiftShader;
 		
-		private static final ShaderStateShard TEST_SHADER = new ShaderStateShard(() -> testShader);
+		private static final ShaderStateShard LEY_RIFT_SHADER = new ShaderStateShard(() -> leyRiftShader);
 		
 		// The memoized rendertype functions to actually use. (nb: for rendertypes that take a resourcelocation for a texture,
 		// use Util#memoize)
-        public static Supplier<RenderType> TEST = RenderTypes::test;
+        public static Supplier<RenderType> LEY_RIFT = RenderTypes::leyRift;
         
-        private static RenderType test() {
+        private static RenderType leyRift() {
         	RenderType.CompositeState rendertype$state = RenderType.CompositeState.builder()
-        			.setShaderState(TEST_SHADER)
+        			.setShaderState(LEY_RIFT_SHADER)
                     .setTransparencyState(NO_TRANSPARENCY)
                     .setLightmapState(NO_LIGHTMAP)
                     .setOverlayState(NO_OVERLAY)
 					.setCullState(NO_CULL)
                     .createCompositeState(true);
-            return create("spectral_test", DefaultVertexFormat.POSITION, VertexFormat.Mode.QUADS, 256, false, false, rendertype$state);
+            return create("ley_rift", DefaultVertexFormat.POSITION, VertexFormat.Mode.QUADS, 256, false, false, rendertype$state);
         }
 
 		
