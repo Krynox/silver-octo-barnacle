@@ -1,6 +1,7 @@
 package me.krynox.spectral.setup;
 
 import me.krynox.spectral.Spectral;
+import me.krynox.spectral.spell.MagicType;
 import me.krynox.spectral.util.LocalisationHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.CreativeModeTabEvent;
@@ -18,30 +19,19 @@ public class CreativeTab {
                 .icon(() -> new ItemStack(Registration.SPIRIT_CRYSTAL_ITEM.get()))
                 .title(LocalisationHelper.newUnlocName(CREATIVE_TAB, "creativetab"))
                 .displayItems((featureFlags, output, hasOp) -> {
-                    output.accept(Registration.FIRE_SPIRIT_SPAWN_EGG_ITEM.get());
-                    output.accept(Registration.LIGHTNING_SPIRIT_SPAWN_EGG_ITEM.get());
-                    output.accept(Registration.WIND_SPIRIT_SPAWN_EGG_ITEM.get());
-                    output.accept(Registration.EARTH_SPIRIT_SPAWN_EGG_ITEM.get());
-                    output.accept(Registration.WATER_SPIRIT_SPAWN_EGG_ITEM.get());
-                    output.accept(Registration.ICE_SPIRIT_SPAWN_EGG_ITEM.get());
-                    output.accept(Registration.LIGHT_SPIRIT_SPAWN_EGG_ITEM.get());
-                    output.accept(Registration.DARK_SPIRIT_SPAWN_EGG_ITEM.get());
+                    for(MagicType t : MagicType.values()) {
+                        output.accept(Registration.SPIRIT_SPAWN_EGGS(t).get());
+                    }
+
+                    for(MagicType t : MagicType.values()) {
+                        output.accept(Registration.ECTO_ITEMS(t).get());
+                    }
 
                     output.accept(Registration.SOUL_MIRROR_ITEM.get());
                     output.accept(Registration.SPECTRAL_FORGE_ITEM.get());
 
                     output.accept(Registration.SPECTRAL_MONOCLE_ITEM.get());
                     output.accept(Registration.SPIRIT_CRYSTAL_ITEM.get());
-
-                    output.accept(Registration.FIRE_ECTO_ITEM.get());
-                    output.accept(Registration.LIGHTNING_ECTO_ITEM.get());
-                    output.accept(Registration.WIND_ECTO_ITEM.get());
-                    output.accept(Registration.WATER_ECTO_ITEM.get());
-                    output.accept(Registration.EARTH_ECTO_ITEM.get());
-                    output.accept(Registration.ICE_ECTO_ITEM.get());
-                    output.accept(Registration.LIGHT_ECTO_ITEM.get());
-                    output.accept(Registration.DARK_ECTO_ITEM.get());
-
                 }));
     }
 }

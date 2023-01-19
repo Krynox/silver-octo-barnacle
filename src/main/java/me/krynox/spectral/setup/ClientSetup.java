@@ -27,30 +27,10 @@ public class ClientSetup {
     public static void onClientSetup(FMLClientSetupEvent event) {
         EntityRenderers.register(Registration.LEY_RIFT_ENTITY.get(), LeyRiftRenderer::new);
 
-        EntityRenderers.register(Registration.FIRE_SPIRIT_ENTITY.get(), (x) ->
-                new SpiritRenderer(x, MagicType.FIRE));
-
-        EntityRenderers.register(Registration.LIGHTNING_SPIRIT_ENTITY.get(), (x) ->
-                new SpiritRenderer(x, MagicType.LIGHTNING));
-
-        EntityRenderers.register(Registration.WIND_SPIRIT_ENTITY.get(), (x) ->
-                new SpiritRenderer(x, MagicType.WIND)
-                        .withScale(3f));
-
-        EntityRenderers.register(Registration.EARTH_SPIRIT_ENTITY.get(), (x) ->
-                new SpiritRenderer(x, MagicType.EARTH));
-
-        EntityRenderers.register(Registration.WATER_SPIRIT_ENTITY.get(), (x) ->
-                new SpiritRenderer(x, MagicType.WATER));
-
-        EntityRenderers.register(Registration.ICE_SPIRIT_ENTITY.get(), (x) ->
-                new SpiritRenderer(x, MagicType.ICE));
-
-        EntityRenderers.register(Registration.LIGHT_SPIRIT_ENTITY.get(), (x) ->
-                new SpiritRenderer(x, MagicType.LIGHT));
-
-        EntityRenderers.register(Registration.DARK_SPIRIT_ENTITY.get(), (x) ->
-                new SpiritRenderer(x, MagicType.DARK));
+        for(MagicType t : MagicType.values()) {
+            EntityRenderers.register(Registration.SPIRIT_ENTITIES(t).get(), (x) ->
+                    new SpiritRenderer(x, t));
+        }
     }
     
     @SubscribeEvent

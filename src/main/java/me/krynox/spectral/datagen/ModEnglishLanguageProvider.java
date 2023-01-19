@@ -3,6 +3,7 @@ package me.krynox.spectral.datagen;
 import me.krynox.spectral.Spectral;
 import me.krynox.spectral.client.keybind.Keybinds;
 import me.krynox.spectral.setup.Registration;
+import me.krynox.spectral.spell.MagicType;
 import me.krynox.spectral.spell.Spell;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
@@ -40,14 +41,10 @@ public class ModEnglishLanguageProvider extends LanguageProvider {
         add(Spectral.MODID + ".creative_tab.creativetab", "Spectral");
         add(Keybinds.SPECTRAL_KEYBIND_CATEGORY, "Spectral");
 
-        add(Registration.FIRE_SPIRIT_SPAWN_EGG_ITEM.get(), "Spawn Fire Spirit");
-        add(Registration.LIGHTNING_SPIRIT_SPAWN_EGG_ITEM.get(), "Spawn Lightning Spirit");
-        add(Registration.WIND_SPIRIT_SPAWN_EGG_ITEM.get(), "Spawn Wind Spirit");
-        add(Registration.EARTH_SPIRIT_SPAWN_EGG_ITEM.get(), "Spawn Earth Spirit");
-        add(Registration.WATER_SPIRIT_SPAWN_EGG_ITEM.get(), "Spawn Water Spirit");
-        add(Registration.ICE_SPIRIT_SPAWN_EGG_ITEM.get(), "Spawn Ice Spirit");
-        add(Registration.LIGHT_SPIRIT_SPAWN_EGG_ITEM.get(), "Spawn Light Spirit");
-        add(Registration.DARK_SPIRIT_SPAWN_EGG_ITEM.get(), "Spawn Dark Spirit");
+        for(MagicType t : MagicType.values()) {
+            add(Registration.SPIRIT_SPAWN_EGGS(t).get(), "Spawn " + t.getNameCapitalised() + " Spirit");
+            add(Registration.SPIRIT_ENTITIES(t).get(), t.getNameCapitalised() + " Spirit");
+        }
 
         add(Registration.SOUL_MIRROR_BLOCK.get(), "Soul Mirror");
         add(Registration.SPECTRAL_FORGE_BLOCK.get(), "Spectral Forge");
@@ -55,22 +52,13 @@ public class ModEnglishLanguageProvider extends LanguageProvider {
         add(Registration.SPECTRAL_MONOCLE_ITEM.get(), "Spectral Monocle");
         add(Registration.SPIRIT_CRYSTAL_ITEM.get(), "Spirit Crystal");
 
-        add(Registration.FIRE_ECTO_ITEM.get(), "Molten Ectoplasm");
-        addSplit(Registration.LIGHTNING_ECTO_ITEM.get(), "Energized Ectoplasm", "Energised Ectoplasm");
-        add(Registration.WIND_ECTO_ITEM.get(), "Squalling Ectoplasm");
-        add(Registration.EARTH_ECTO_ITEM.get(), "Adamantine Ectoplasm");
-        add(Registration.WATER_ECTO_ITEM.get(), "Drowning Ectoplasm");
-        add(Registration.ICE_ECTO_ITEM.get(), "Glacial Ectoplasm");
-        add(Registration.DARK_ECTO_ITEM.get(), "Twilit Ectoplasm");
-        add(Registration.LIGHT_ECTO_ITEM.get(), "Refulgent Ectoplasm");
-
-        add(Registration.FIRE_SPIRIT_ENTITY.get(), "Fire Spirit");
-        add(Registration.LIGHTNING_SPIRIT_ENTITY.get(), "Lightning Spirit");
-        add(Registration.WIND_SPIRIT_ENTITY.get(), "Wind Spirit");
-        add(Registration.EARTH_SPIRIT_ENTITY.get(), "Earth Spirit");
-        add(Registration.WATER_SPIRIT_ENTITY.get(), "Water Spirit");
-        add(Registration.ICE_SPIRIT_ENTITY.get(), "Ice Spirit");
-        add(Registration.LIGHT_SPIRIT_ENTITY.get(), "Light Spirit");
-        add(Registration.DARK_SPIRIT_ENTITY.get(), "Dark Spirit");
+        add(Registration.ECTO_ITEMS(MagicType.FIRE).get(), "Molten Ectoplasm");
+        addSplit(Registration.ECTO_ITEMS(MagicType.LIGHTNING).get(), "Energized Ectoplasm", "Energised Ectoplasm");
+        add(Registration.ECTO_ITEMS(MagicType.WIND).get(), "Squalling Ectoplasm");
+        add(Registration.ECTO_ITEMS(MagicType.EARTH).get(), "Adamantine Ectoplasm");
+        add(Registration.ECTO_ITEMS(MagicType.WATER).get(), "Drowning Ectoplasm");
+        add(Registration.ECTO_ITEMS(MagicType.ICE).get(), "Glacial Ectoplasm");
+        add(Registration.ECTO_ITEMS(MagicType.DARK).get(), "Twilit Ectoplasm");
+        add(Registration.ECTO_ITEMS(MagicType.LIGHT).get(), "Refulgent Ectoplasm");
     }
 }

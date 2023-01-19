@@ -29,7 +29,7 @@ public class LeyRiftEntity extends Entity {
     public LeyRiftEntity(EntityType<?> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         type = MagicType.FIRE;
-        spawner.setEntityId(Registration.WIND_SPIRIT_ENTITY.get(), pLevel, randomSource, getOnPos().offset(0d,0.5d,0d));
+        spawner.setEntityId(Registration.SPIRIT_ENTITIES(MagicType.WIND).get(), pLevel, randomSource, getOnPos().offset(0d,0.5d,0d));
     }
 
 
