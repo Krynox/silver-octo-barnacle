@@ -20,6 +20,7 @@ public class ModBlockStates extends BlockStateProvider {
     protected void registerStatesAndModels() {
        simpleBlockWithItem(Registration.SOUL_MIRROR_BLOCK.get());
        simpleBlockWithItem(Registration.SPECTRAL_FORGE_BLOCK.get());
+       simpleBlockWithItem(Registration.SPIRIT_CAGE_BLOCK.get());
 
     }
 }

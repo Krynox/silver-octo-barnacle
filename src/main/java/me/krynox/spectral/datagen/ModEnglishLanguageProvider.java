@@ -38,8 +38,9 @@ public class ModEnglishLanguageProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        add(Spectral.MODID + ".creative_tab.creativetab", "Spectral");
+        add("spectral.creative_tab.creativetab", "Spectral");
         add(Keybinds.SPECTRAL_KEYBIND_CATEGORY, "Spectral");
+        add("death.attack.spectral.spectral_forge", "%s was shredded by the fabric of space-time.");
 
         for(MagicType t : MagicType.values()) {
             add(Registration.SPIRIT_SPAWN_EGGS(t).get(), "Spawn " + t.getNameCapitalised() + " Spirit");
@@ -47,7 +48,8 @@ public class ModEnglishLanguageProvider extends LanguageProvider {
         }
 
         add(Registration.SOUL_MIRROR_BLOCK.get(), "Soul Mirror");
-        add(Registration.SPECTRAL_FORGE_BLOCK.get(), "Spectral Forge");
+        add(Registration.SPECTRAL_FORGE_BLOCK.get(), "Heart of the Forge");
+        add(Registration.SPIRIT_CAGE_BLOCK.get(), "Spirit Cage");
 
         add(Registration.SPECTRAL_MONOCLE_ITEM.get(), "Spectral Monocle");
         add(Registration.SPIRIT_CRYSTAL_ITEM.get(), "Spirit Crystal");

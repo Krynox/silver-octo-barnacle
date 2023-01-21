@@ -1,19 +1,27 @@
 package me.krynox.spectral.block.entity;
 
+import me.krynox.spectral.Spectral;
 import me.krynox.spectral.capability.ectohandler.EctoHandlerImpl;
 import me.krynox.spectral.capability.ectohandler.IEctoHandler;
 import me.krynox.spectral.capability.SpectralCapabilities;
 import me.krynox.spectral.crafting.EctoInvRecipeWrapper;
 import me.krynox.spectral.crafting.SpectralForgeRecipe;
 import me.krynox.spectral.setup.Registration;
+import me.krynox.spectral.util.SpectralDamageSources;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -34,6 +42,14 @@ public class SpectralForgeBE extends BlockEntity {
     private final EctoInvRecipeWrapper recipeWrapper;
     private final RecipeManager.CachedCheck<EctoInvRecipeWrapper, SpectralForgeRecipe> recipeChecker;
 
+    private final int tickInterval = 4;
+    private int tickTimer = 0;
+
+    private boolean isActive;
+    private int portalLayer; //invalid if !isActive
+    @Nullable
+    private AABB portalBB; //invalid if !isActive
+
     public SpectralForgeBE(BlockPos pPos, BlockState pBlockState) {
         super(Registration.SPECTRAL_FORGE_BE.get(), pPos, pBlockState);
 
@@ -45,6 +61,24 @@ public class SpectralForgeBE extends BlockEntity {
         this.recipeWrapper = new EctoInvRecipeWrapper(inventory, ectoStorage);
     }
 
+    public static void tick(Level level, BlockPos pos, BlockState state, SpectralForgeBE blockEntity) {
+        if(!level.isClientSide) {
+            if(blockEntity.tickTimer <= 0 && blockEntity.portalBB != null && blockEntity.isActive) {
+                for(Entity e : level.getEntities(null, blockEntity.portalBB)) {
+                    if(e instanceof ItemEntity) {
+                        e.remove(Entity.RemovalReason.KILLED);
+                    } else if(e instanceof LivingEntity) {
+                        LivingEntity le = (LivingEntity) e;
+                        le.hurt(SpectralDamageSources.SPECTRAL_FORGE, Float.MAX_VALUE);
+                    }
+                }
+                blockEntity.tickTimer = blockEntity.tickInterval;
+            } else {
+                blockEntity.tickTimer -= 1;
+            }
+        }
+    }
+
     /**
      * Attempt to craft an item using the current state of the forge.
      */
@@ -53,6 +87,24 @@ public class SpectralForgeBE extends BlockEntity {
                 .getRecipeFor(recipeWrapper, level)
                 .map((recipe) -> recipe.assemble(recipeWrapper));
     }
+
+    public void tryInitialiseMultiblock() {
+        int above = 5;
+        int below = 10;
+        Block portalFrame = Blocks.CRYING_OBSIDIAN;
+
+        Optional<Integer> cagesLevel = getCagesLevel(above);
+        Optional<Integer> portalsLevel = getPortalLevel(below, portalFrame);
+
+        if(cagesLevel.isPresent() && portalsLevel.isPresent()) {
+            this.isActive = true;
+            this.portalLayer = portalsLevel.get();
+            this.portalBB = new AABB(getBlockPos().below(portalLayer-2).east(2).north(2), getBlockPos().below(portalLayer).west(2).south(2));
+            Spectral.LOGGER.info("Initialised forge, portal at " + portalBB);
+        }
+    }
+
+
 
     //////////////////////////
     //// Capability stuff ////
@@ -114,4 +166,112 @@ public class SpectralForgeBE extends BlockEntity {
         this.inventory.deserializeNBT(tag.getCompound("inv"));
         this.ectoStorage.deserialize(tag.getCompound("ecto"));
     }
+
+    ///////////////////////////////////////
+    //// Helpers for isValidMultiblock ////
+    ///////////////////////////////////////
+
+    private Optional<Integer> getCagesLevel(int maxHeight) {
+        for(int i = 1; i <= maxHeight; i++) {
+            if(isValidMultiblockCagesLayer(i)) return Optional.of(i);
+        }
+        return Optional.empty();
+    }
+
+    private Optional<Integer> getPortalLevel(int maxDepth, Block portalFrame) {
+        for(int i = 1; i <= maxDepth; i++) {
+            if(!isValidMultiblockPrePortalLayer(i)) return Optional.empty(); // NB: this works because isValidPortalLayer implies isValidPrePortalLayer
+            if(isValidMultiblockPortalLayer(i, portalFrame)) return Optional.of(i);
+        }
+
+        return Optional.empty();
+
+    }
+
+    private boolean isValidMultiblockCagesLayer(int distAbove) {
+        Block cage = Registration.SPIRIT_CAGE_BLOCK.get();
+        BlockPos center = getBlockPos().above(distAbove);
+
+        // inner 5x5 must be all air
+        if(!isFilledHorizontalSquare(level, center, 2, Blocks.AIR)) return false;
+
+        // edges (corners excluded) must be air with one cage in the middle
+        // north and south edges:
+        for(int z = -2; z <= 2; z++) {
+            BlockPos north = center.north(3).east(z);
+            BlockPos south = center.south(3).east(z);
+
+            if(z == 0 &&
+                    (!level.getBlockState(north).is(cage)
+                            || !level.getBlockState(south).is(cage))) {
+                return false;
+
+            } else if(z != 0 &&
+                    (!level.getBlockState(north).is(Blocks.AIR)
+                            || !level.getBlockState(south).is(Blocks.AIR))) {
+                return false;
+            }
+        }
+
+        // east and west edges:
+        for(int z = -2; z <= 2; z++) {
+            BlockPos east = center.east(3).north(z);
+            BlockPos west = center.west(3).north(z);
+
+            if(z == 0 &&
+                    (!level.getBlockState(east).is(cage)
+                            || !level.getBlockState(west).is(cage))) {
+                return false;
+
+            } else if(z != 0 &&
+                    (!level.getBlockState(east).is(Blocks.AIR)
+                            || !level.getBlockState(west).is(Blocks.AIR))) {
+                return false;
+            }
+        }
+
+        //corners must be cages
+        return level.getBlockState    (center.north(3).east(3)).is(cage)
+                && level.getBlockState(center.north(3).west(3)).is(cage)
+                && level.getBlockState(center.south(3).east(3)).is(cage)
+                && level.getBlockState(center.south(3).west(3)).is(cage);
+
+    }
+
+    private boolean isValidMultiblockPrePortalLayer(int distBelow) {
+        //must be a 3x3 of air
+        return isFilledHorizontalSquare(level, worldPosition.below(distBelow), 1, Blocks.AIR);
+    }
+
+    private boolean isValidMultiblockPortalLayer(int distBelow, Block portalFrame) {
+        // inner 5x5 must be all air
+        if(!isFilledHorizontalSquare(level, worldPosition.below(distBelow), 2, Blocks.AIR)) return false;
+
+        // north+south borders must be the frame material
+        for(int z = -2; z <= 2; z++) {
+            BlockPos north = this.getBlockPos().north(3).east(z).below(distBelow);
+            BlockPos south = this.getBlockPos().south(3).east(z).below(distBelow);
+            if(!level.getBlockState(north).is(portalFrame) || !level.getBlockState(south).is(portalFrame)) return false;
+        }
+
+        // east+west borders must be the frame material
+        for(int x = -2; x <= 2; x++) {
+            BlockPos east = this.getBlockPos().north(x).east(3).below(distBelow);
+            BlockPos west = this.getBlockPos().north(x).west(3).below(distBelow);
+            if(!level.getBlockState(east).is(portalFrame) || !level.getBlockState(west).is(portalFrame)) return false;
+        }
+
+        return true;
+    }
+
+    private static boolean isFilledHorizontalSquare(Level level, BlockPos center, int radius, Block fill) {
+        for(int x = -radius; x <= radius; x++) {
+            for(int z = -radius; z <= radius; z++) {
+                BlockPos pos = center.north(x).east(z);
+                if(!level.getBlockState(pos).is(fill)) return false;
+            }
+        }
+        return true;
+    }
+
 }

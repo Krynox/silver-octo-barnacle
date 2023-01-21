@@ -29,6 +29,7 @@ public class CreativeTab {
 
                     output.accept(Registration.SOUL_MIRROR_ITEM.get());
                     output.accept(Registration.SPECTRAL_FORGE_ITEM.get());
+                    output.accept(Registration.SPIRIT_CAGE_BLOCK.get());
 
                     output.accept(Registration.SPECTRAL_MONOCLE_ITEM.get());
                     output.accept(Registration.SPIRIT_CRYSTAL_ITEM.get());

@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import me.krynox.spectral.Spectral;
 import me.krynox.spectral.block.SoulMirror;
 import me.krynox.spectral.block.SpectralForge;
+import me.krynox.spectral.block.SpiritCage;
 import me.krynox.spectral.block.entity.SoulMirrorBE;
 import me.krynox.spectral.block.entity.SpectralForgeBE;
 import me.krynox.spectral.crafting.SpectralForgeRecipe;
@@ -130,6 +131,12 @@ public class Registration {
             = BLOCK_ENTITIES.register("spectral_forge", () -> BlockEntityType.Builder
             .of(SpectralForgeBE::new, SPECTRAL_FORGE_BLOCK.get())
             .build(null));
+
+
+    public static final RegistryObject<Block> SPIRIT_CAGE_BLOCK
+            = BLOCKS.register("spirit_cage", SpiritCage::new);
+    public static final RegistryObject<Item> SPIRIT_CAGE_ITEM
+            = fromBlock(SPIRIT_CAGE_BLOCK);
 
     //////////////////
     //// ENTITIES ////

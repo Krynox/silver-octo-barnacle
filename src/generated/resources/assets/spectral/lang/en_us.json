@@ -1,6 +1,8 @@
 {
   "block.spectral.soul_mirror": "Soul Mirror",
-  "block.spectral.spectral_forge": "Spectral Forge",
+  "block.spectral.spectral_forge": "Heart of the Forge",
+  "block.spectral.spirit_cage": "Spirit Cage",
+  "death.attack.spectral.spectral_forge": "%s was shredded by the fabric of space-time.",
   "entity.spectral.dark_spirit": "Dark Spirit",
   "entity.spectral.earth_spirit": "Earth Spirit",
   "entity.spectral.fire_spirit": "Fire Spirit",
