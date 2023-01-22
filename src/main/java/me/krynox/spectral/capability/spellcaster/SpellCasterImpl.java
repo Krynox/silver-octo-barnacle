@@ -13,6 +13,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.items.IItemHandler;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +25,10 @@ public class SpellCasterImpl implements ISpellCaster {
 
     public static final int SPELL_SLOTS = 6;
     public static final int MAX_FOCUS = 7;
-    
+
+    // The inventory the player interacts with via the soul mirror
+    private IItemHandler soulMirrorInv;
+
     private Spell[] spells = new Spell[SPELL_SLOTS];
     private boolean spellcastingMode = false;
     private int focus = 0;
@@ -40,7 +44,7 @@ public class SpellCasterImpl implements ISpellCaster {
             Spectral.LOGGER.error("Tried to get spell from out-of-bounds slot " + slot + ".");
             return Optional.empty();
         }
-        return Optional.of(spells[slot]);
+        return Optional.ofNullable(spells[slot]);
     }
 
     @Override
@@ -66,10 +70,7 @@ public class SpellCasterImpl implements ISpellCaster {
         }
 
         Spell s = spells[slot];
-        if(s == null) {
-            Spectral.LOGGER.debug("Tried to cast non-equipped spell.");
-            return;
-        }
+        if(s == null) return;
 
         if(player instanceof ServerPlayer && level instanceof ServerLevel) {
             Spectral.LOGGER.debug("Server casting " + slot);

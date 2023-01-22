@@ -45,7 +45,7 @@ public class Registration {
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Spectral.MODID);
 
     //Custom registries; for each one, a DeferredRegister to use in this class, and then the actual registry constructed from it.
-    public static final DeferredRegister<Spell> SPELLS = DeferredRegister.create(Spectral.resLoc("spells_registy"), Spectral.MODID);
+    public static final DeferredRegister<Spell> SPELLS = DeferredRegister.create(Spectral.resLoc("spell"), Spectral.MODID);
     public static final Supplier<IForgeRegistry<Spell>> SPELLS_REEGISTRY = SPELLS.makeRegistry(RegistryBuilder::new);
 
     public static void registerAll(IEventBus bus) {

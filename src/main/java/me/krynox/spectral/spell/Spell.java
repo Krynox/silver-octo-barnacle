@@ -4,6 +4,7 @@ import me.krynox.spectral.setup.Registration;
 import net.minecraft.Util;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -30,4 +31,5 @@ public class Spell {
         }
         return this.descriptionId;
     }
+
 }

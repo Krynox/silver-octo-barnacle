@@ -38,12 +38,12 @@ public class FocusBarOverlay implements IGuiOverlay {
 	}
 	
 	private void renderBar(PoseStack poseStack, int focus, int maxFocus, int screenWidth, int screenHeight) {
-		int x = Mth.ceil(screenWidth / 2) - (U_WIDTH * maxFocus / 2);
-		int y = Mth.ceil(screenHeight * 25 / 32);
+		final int xStart = (screenWidth / 2) - (U_WIDTH * maxFocus / 2);
+		final int y = screenHeight - 36 - V_HEIGHT;
 		
 		for(int i = 0; i < maxFocus; i++) {
-			renderPip(poseStack, pipToRender(i, focus, maxFocus), x, y);
-			x += U_WIDTH;
+			renderPip(poseStack, pipToRender(i, focus, maxFocus), xStart+(i*U_WIDTH), y);
+
 		}
 	}
 	
