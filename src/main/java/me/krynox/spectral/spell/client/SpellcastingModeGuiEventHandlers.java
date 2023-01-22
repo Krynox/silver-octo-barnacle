@@ -4,6 +4,7 @@ import me.krynox.spectral.Spectral;
 import me.krynox.spectral.capability.SpectralCapabilities;
 import me.krynox.spectral.client.keybind.Keybinds;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
@@ -15,15 +16,19 @@ public class SpellcastingModeGuiEventHandlers {
 
     @SubscribeEvent
     public static void onRenderGuiOverlay(RenderGuiOverlayEvent.Pre event) {
-        if(Minecraft.getInstance().player
-        		.getCapability(SpectralCapabilities.SPELL_CASTER)
-        		.resolve().get().isSpellcastingMode() 
-        	) {
-        	
-        	String overlay = event.getOverlay().id().getPath();
-        	if (overlay.equals("hotbar") || overlay.equals("experience_bar")) {
-        		event.setCanceled(true);
-        	}
-        }
+		LocalPlayer player = Minecraft.getInstance().player;
+		if(player != null) {
+			player.getCapability(SpectralCapabilities.SPELL_CASTER)
+					.resolve()
+					.ifPresent((cap) -> {
+						if(cap.isSpellcastingMode()) {
+							String overlay = event.getOverlay().id().getPath();
+							if (overlay.equals("hotbar") || overlay.equals("experience_bar")) {
+								event.setCanceled(true);
+							}
+
+						}
+					});
+		}
     }
 }

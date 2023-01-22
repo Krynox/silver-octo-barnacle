@@ -8,6 +8,7 @@ import me.krynox.spectral.capability.SpectralCapabilities;
 import me.krynox.spectral.capability.spellcaster.ISpellCaster;
 import me.krynox.spectral.client.gui.FocusBarOverlay.PipType;
 import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
@@ -25,9 +26,14 @@ public class SpellHotbarOverlay implements IGuiOverlay {
 	public void render(ForgeGui gui, PoseStack poseStack, float partialTick, int screenWidth, int screenHeight) {
     	RenderSystem.setShaderTexture(0, TEXTURE);
 
-    	ISpellCaster cap = gui.getMinecraft().player.getCapability(SpectralCapabilities.SPELL_CASTER).resolve().get();
-    	
-    	if(cap.isSpellcastingMode()) renderBar(poseStack, cap.getSpellSlots(), screenWidth, screenHeight);
+		LocalPlayer player = gui.getMinecraft().player;
+		if(player != null) {
+			player.getCapability(SpectralCapabilities.SPELL_CASTER)
+					.resolve()
+					.ifPresent((cap) -> {
+						if (cap.isSpellcastingMode()) renderBar(poseStack, cap.getSpellSlots(), screenWidth, screenHeight);
+					});
+		}
 	}
 	
 	private void renderBar(PoseStack poseStack, int slots, int screenWidth, int screenHeight) {

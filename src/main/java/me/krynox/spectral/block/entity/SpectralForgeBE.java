@@ -66,6 +66,8 @@ public class SpectralForgeBE extends BlockEntity {
             if(blockEntity.tickTimer <= 0 && blockEntity.portalBB != null && blockEntity.isActive) {
                 for(Entity e : level.getEntities(null, blockEntity.portalBB)) {
                     if(e instanceof ItemEntity) {
+                        blockEntity.slurpItem(((ItemEntity) e).getItem());
+
                         e.remove(Entity.RemovalReason.KILLED);
                     } else if(e instanceof LivingEntity) {
                         LivingEntity le = (LivingEntity) e;
@@ -99,7 +101,11 @@ public class SpectralForgeBE extends BlockEntity {
         if(cagesLevel.isPresent() && portalsLevel.isPresent()) {
             this.isActive = true;
             this.portalLayer = portalsLevel.get();
-            this.portalBB = new AABB(getBlockPos().below(portalLayer-2).east(2).north(2), getBlockPos().below(portalLayer).west(2).south(2));
+
+            double x = getBlockPos().getX();
+            double y = getBlockPos().getY() - portalLayer;
+            double z = getBlockPos().getZ();
+            this.portalBB = new AABB(x+3, y+1,z+3, x-2, y, z-2);
             Spectral.LOGGER.info("Initialised forge, portal at " + portalBB);
         }
     }
@@ -272,6 +278,14 @@ public class SpectralForgeBE extends BlockEntity {
             }
         }
         return true;
+    }
+
+    //////////////////////////
+    //// Crafting Helpers ////
+    //////////////////////////
+
+    private void slurpItem(ItemStack item) {
+
     }
 
 }
