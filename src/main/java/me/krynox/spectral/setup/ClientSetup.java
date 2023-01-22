@@ -3,11 +3,13 @@ package me.krynox.spectral.setup;
 import me.krynox.spectral.Spectral;
 import me.krynox.spectral.client.gui.FocusBarOverlay;
 import me.krynox.spectral.client.gui.SpellHotbarOverlay;
+import me.krynox.spectral.client.rendering.block.SpectralForgeRenderer;
 import me.krynox.spectral.client.rendering.entity.LeyRiftRenderer;
 import me.krynox.spectral.client.rendering.entity.SpiritRenderer;
 import me.krynox.spectral.spell.MagicType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -30,6 +32,11 @@ public class ClientSetup {
     	event.registerAboveAll("spell_hotbar", new SpellHotbarOverlay());
     	event.registerAboveAll("focus_bar", new FocusBarOverlay());
 
+    }
+
+    @SubscribeEvent
+    public static void registerBERs(EntityRenderersEvent.RegisterRenderers e) {
+        e.registerBlockEntityRenderer(Registration.SPECTRAL_FORGE_BE.get(), (ctx) -> new SpectralForgeRenderer());
     }
     
 

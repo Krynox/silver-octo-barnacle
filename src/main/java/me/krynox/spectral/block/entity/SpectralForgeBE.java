@@ -1,9 +1,9 @@
 package me.krynox.spectral.block.entity;
 
 import me.krynox.spectral.Spectral;
+import me.krynox.spectral.capability.SpectralCapabilities;
 import me.krynox.spectral.capability.ectohandler.EctoHandlerImpl;
 import me.krynox.spectral.capability.ectohandler.IEctoHandler;
-import me.krynox.spectral.capability.SpectralCapabilities;
 import me.krynox.spectral.crafting.EctoInvRecipeWrapper;
 import me.krynox.spectral.crafting.SpectralForgeRecipe;
 import me.krynox.spectral.setup.Registration;
@@ -16,7 +16,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
@@ -32,10 +31,17 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoBlockEntity;
+import software.bernie.geckolib.constant.DefaultAnimations;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.Optional;
 
-public class SpectralForgeBE extends BlockEntity {
+public class SpectralForgeBE extends BlockEntity implements GeoBlockEntity {
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
     private final ItemStackHandler inventory;
     private final IEctoHandler ectoStorage;
     //cached maybes to return for the getCapability calls
@@ -51,7 +57,7 @@ public class SpectralForgeBE extends BlockEntity {
     private boolean isActive;
     private int portalLayer; //invalid if !isActive
     @Nullable
-    private AABB portalBB; //invalid if !isActive
+    private AABB portalBB; //invalid and nullable if !isActive. must be nonnull if isActive.
 
     public SpectralForgeBE(BlockPos pPos, BlockState pBlockState) {
         super(Registration.SPECTRAL_FORGE_BE.get(), pPos, pBlockState);
@@ -102,11 +108,7 @@ public class SpectralForgeBE extends BlockEntity {
         if(cagesLevel.isPresent() && portalsLevel.isPresent()) {
             this.isActive = true;
             this.portalLayer = portalsLevel.get();
-
-            double x = getBlockPos().getX();
-            double y = getBlockPos().getY() - portalLayer;
-            double z = getBlockPos().getZ();
-            this.portalBB = new AABB(x+3, y+1,z+3, x-2, y, z-2);
+            updatePortalBB();
             Spectral.LOGGER.info("Initialised forge, portal at " + portalBB);
         }
     }
@@ -114,6 +116,15 @@ public class SpectralForgeBE extends BlockEntity {
     public void withdrawItems(ServerPlayer player) {
         for(int i = 1; i < this.inventory.getSlots(); i++) {
             player.getInventory().placeItemBackInInventory(this.inventory.getStackInSlot(i));
+        }
+    }
+
+    private void updatePortalBB() {
+        if(this.isActive) {
+            double x = getBlockPos().getX();
+            double y = getBlockPos().getY() - portalLayer;
+            double z = getBlockPos().getZ();
+            this.portalBB = new AABB(x + 3, y + 1, z + 3, x - 2, y, z - 2);
         }
     }
 
@@ -147,6 +158,9 @@ public class SpectralForgeBE extends BlockEntity {
     public void load(CompoundTag tag) {
         this.inventory.deserializeNBT(tag.getCompound("inv"));
         this.ectoStorage.deserialize(tag.getCompound("ecto"));
+        this.isActive = tag.getBoolean("isActive");
+        this.portalLayer = tag.getInt("portalLayer");
+        updatePortalBB();
         super.load(tag);
     }
 
@@ -154,6 +168,8 @@ public class SpectralForgeBE extends BlockEntity {
     protected void saveAdditional(CompoundTag pTag) {
         pTag.put("inv", inventory.serializeNBT());
         pTag.put("ecto", ectoStorage.serialize());
+        pTag.putBoolean("isActive", isActive);
+        pTag.putInt("portalLayer", portalLayer);
         super.saveAdditional(pTag);
     }
 
@@ -168,6 +184,8 @@ public class SpectralForgeBE extends BlockEntity {
         CompoundTag tag = new CompoundTag();
         tag.put("inv", inventory.serializeNBT());
         tag.put("ecto", ectoStorage.serialize());
+        tag.putBoolean("isActive", isActive);
+        tag.putInt("portalLayer", portalLayer);
 
         return tag;
     }
@@ -176,6 +194,9 @@ public class SpectralForgeBE extends BlockEntity {
     public void handleUpdateTag(CompoundTag tag) {
         this.inventory.deserializeNBT(tag.getCompound("inv"));
         this.ectoStorage.deserialize(tag.getCompound("ecto"));
+        this.isActive = tag.getBoolean("isActive");
+        this.portalLayer = tag.getInt("portalLayer");
+        updatePortalBB();
     }
 
     ///////////////////////////////////////
@@ -322,4 +343,17 @@ public class SpectralForgeBE extends BlockEntity {
         return isActive;
     }
 
+    ///////////////////
+    //// Animation ////
+    ///////////////////
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(DefaultAnimations.genericIdleController(this));
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return cache;
+    }
 }

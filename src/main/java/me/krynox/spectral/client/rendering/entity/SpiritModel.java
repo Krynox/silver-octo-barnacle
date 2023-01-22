@@ -13,7 +13,7 @@ public class SpiritModel extends GeoModel<SpiritEntity> {
     }
     @Override
     public ResourceLocation getModelResource(SpiritEntity animatable) {
-        return Spectral.resLoc("geo/spirit.geo.json");
+        return Spectral.resLoc("geo/entity/spirit.geo.json");
     }
 
     @Override
@@ -23,6 +23,6 @@ public class SpiritModel extends GeoModel<SpiritEntity> {
 
     @Override
     public ResourceLocation getAnimationResource(SpiritEntity animatable) {
-        return Spectral.resLoc("animations/spirit.animation.json");
+        return Spectral.resLoc("animations/entity/spirit.animation.json");
     }
 }
