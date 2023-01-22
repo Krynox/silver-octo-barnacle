@@ -289,11 +289,6 @@ public class SpectralForgeBE extends BlockEntity {
     //// Crafting Helpers ////
     //////////////////////////
 
-    /*
-        TODO BUG - input item for crafting recipe is being eaten rather than yeeted if there is insufficient ecto.
-        Working backwards, it's probably because this is returning true erroneously. Which may implicate assemble.
-        Return to this when more brain cells are available.
-     */
     private boolean tryCraft(ItemStack item) {
         // If it's an ecto, put it right into storage
         for(MagicType t : MagicType.values()) {

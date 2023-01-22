@@ -9,6 +9,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 public class SpectralForgeRecipe implements Recipe<EctoInvRecipeWrapper> {
     private final ResourceLocation id;
@@ -31,25 +32,39 @@ public class SpectralForgeRecipe implements Recipe<EctoInvRecipeWrapper> {
         this.input = input;
     }
 
+    // takes level because the override does, but we don't care about it here
     @Override
-    public boolean matches(EctoInvRecipeWrapper inputs, Level level) {
-        return inputs.ectoHandler.get(MagicType.FIRE) >= fireCost
-                && inputs.ectoHandler.get(MagicType.LIGHTNING) >= lightningCost
-                && inputs.ectoHandler.get(MagicType.WIND) >= windCost
-                && inputs.ectoHandler.get(MagicType.EARTH) >= earthCost
-                && inputs.ectoHandler.get(MagicType.WATER) >= waterCost
-                && inputs.ectoHandler.get(MagicType.ICE) >= iceCost
-                && inputs.ectoHandler.get(MagicType.LIGHT) >= lightCost
-                && inputs.ectoHandler.get(MagicType.DARK) >= darkCost
-                && inputs.getItem(0).is(input);
+    public boolean matches(EctoInvRecipeWrapper state, @Nullable Level level) {
+        return state.ectoHandler.get(MagicType.FIRE) >= fireCost
+                && state.ectoHandler.get(MagicType.LIGHTNING) >= lightningCost
+                && state.ectoHandler.get(MagicType.WIND) >= windCost
+                && state.ectoHandler.get(MagicType.EARTH) >= earthCost
+                && state.ectoHandler.get(MagicType.WATER) >= waterCost
+                && state.ectoHandler.get(MagicType.ICE) >= iceCost
+                && state.ectoHandler.get(MagicType.LIGHT) >= lightCost
+                && state.ectoHandler.get(MagicType.DARK) >= darkCost
+                && state.getItem(0).is(input);
     }
 
     //Mutate the state of the container and return the crafting result.
     @Override
     public ItemStack assemble(EctoInvRecipeWrapper state) {
+        if(!matches(state, null)) return ItemStack.EMPTY;
+
         ItemStack result = getResultItem();
+
         state.removeItem(0,1);
         state.insertItem(result);
+
+        state.ectoHandler.add(MagicType.FIRE, -fireCost);
+        state.ectoHandler.add(MagicType.LIGHTNING, -lightningCost);
+        state.ectoHandler.add(MagicType.WIND, -windCost);
+        state.ectoHandler.add(MagicType.EARTH, -earthCost);
+        state.ectoHandler.add(MagicType.WATER, -waterCost);
+        state.ectoHandler.add(MagicType.ICE, -iceCost);
+        state.ectoHandler.add(MagicType.LIGHT, -lightCost);
+        state.ectoHandler.add(MagicType.DARK, -darkCost);
+
         return result;
     }
 
