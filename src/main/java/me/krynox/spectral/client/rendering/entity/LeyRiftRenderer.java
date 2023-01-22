@@ -1,4 +1,4 @@
-package me.krynox.spectral.entity.client;
+package me.krynox.spectral.client.rendering.entity;
 
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -7,7 +7,6 @@ import me.krynox.spectral.Spectral;
 import me.krynox.spectral.client.rendering.SpectralRenderTypes;
 import me.krynox.spectral.entity.LeyRiftEntity;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.culling.Frustum;
@@ -15,7 +14,6 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Math;
 import org.joml.Matrix4f;

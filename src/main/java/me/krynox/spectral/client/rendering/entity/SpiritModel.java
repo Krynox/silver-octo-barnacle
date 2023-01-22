@@ -1,4 +1,4 @@
-package me.krynox.spectral.entity.client;
+package me.krynox.spectral.client.rendering.entity;
 
 import me.krynox.spectral.Spectral;
 import me.krynox.spectral.entity.SpiritEntity;

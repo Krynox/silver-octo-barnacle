@@ -1,4 +1,4 @@
-package me.krynox.spectral.spell.client;
+package me.krynox.spectral.client.gui;
 
 import me.krynox.spectral.Spectral;
 import me.krynox.spectral.capability.SpectralCapabilities;
