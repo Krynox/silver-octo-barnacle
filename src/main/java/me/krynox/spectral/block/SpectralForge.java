@@ -6,6 +6,7 @@ import me.krynox.spectral.capability.ectohandler.IEctoHandler;
 import me.krynox.spectral.capability.SpectralCapabilities;
 import me.krynox.spectral.setup.Registration;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -32,16 +33,14 @@ public class SpectralForge extends Block implements EntityBlock {
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if(!pLevel.isClientSide) {
             SpectralForgeBE be = (SpectralForgeBE) pLevel.getBlockEntity(pPos);
-            be.tryInitialiseMultiblock();
+            if(be != null) {
+                if(be.isActive()) {
+                    be.withdrawItems((ServerPlayer) pPlayer);
+                } else {
+                    be.tryInitialiseMultiblock();
+                }
+            }
 
-            /*
-            LazyOptional<IEctoHandler> cap = be.getCapability(SpectralCapabilities.ECTO_HANDLER);
-            cap.ifPresent((ecto) -> {
-                Spectral.LOGGER.info(Integer.toString(ecto.add(FIRE, 10).get(FIRE)));
-                be.setChanged();
-
-            });
-            */
         }
 
         return InteractionResult.SUCCESS;

@@ -1,0 +1,13 @@
+{
+  "type": "spectral:spectral_forge_recipeserializer",
+  "darkCost": 0,
+  "earthCost": 0,
+  "fireCost": 3,
+  "iceCost": 0,
+  "input": "minecraft:amethyst_shard",
+  "lightCost": 0,
+  "lightningCost": 0,
+  "result": "spectral:spirit_crystal",
+  "waterCost": 0,
+  "windCost": 0
+}

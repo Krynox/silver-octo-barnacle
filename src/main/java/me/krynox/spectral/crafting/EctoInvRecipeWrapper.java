@@ -1,12 +1,11 @@
 package me.krynox.spectral.crafting;
 
 import me.krynox.spectral.capability.ectohandler.IEctoHandler;
-import me.krynox.spectral.util.InvUtils;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 
-import java.util.Map;
+import java.util.Optional;
 
 
 /**
@@ -25,17 +24,16 @@ public class EctoInvRecipeWrapper extends RecipeWrapper {
     }
 
     /**
-     * For all (x, n) pairs in the input map, return whether there are at least n many x's in the inventory.
-     * @param m A multiset represented as a map from member elements to their multiplicities.
+     * Try to insert the itemstack into the inventory (but NOT slot 0).
+     * Return the remainder (so ItemStack.EMPTY for complete success)
      */
-    public boolean hasAll(Map<Item, Integer> m) {
-        Map<Item, Integer> invCounts = InvUtils.countItemsInInv(this.inv);
-
-        for (Item i : m.keySet()) {
-            if(invCounts.getOrDefault(i, 0) < m.get(i)) return false;
+    public ItemStack insertItem(ItemStack item) {
+        ItemStack remainder = item;
+        for(int i = 1; i < inv.getSlots(); i++) {
+            remainder = inv.insertItem(i, remainder, false);
+            if(remainder == ItemStack.EMPTY) break;
         }
-
-        return true;
+        return remainder;
     }
 
 }

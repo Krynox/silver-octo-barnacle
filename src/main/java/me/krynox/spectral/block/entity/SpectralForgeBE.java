@@ -7,13 +7,16 @@ import me.krynox.spectral.capability.SpectralCapabilities;
 import me.krynox.spectral.crafting.EctoInvRecipeWrapper;
 import me.krynox.spectral.crafting.SpectralForgeRecipe;
 import me.krynox.spectral.setup.Registration;
+import me.krynox.spectral.spell.MagicType;
 import me.krynox.spectral.util.SpectralDamageSources;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
@@ -42,7 +45,7 @@ public class SpectralForgeBE extends BlockEntity {
     private final EctoInvRecipeWrapper recipeWrapper;
     private final RecipeManager.CachedCheck<EctoInvRecipeWrapper, SpectralForgeRecipe> recipeChecker;
 
-    private final int tickInterval = 4;
+    private final int tickInterval = 5;
     private int tickTimer = 0;
 
     private boolean isActive;
@@ -53,7 +56,7 @@ public class SpectralForgeBE extends BlockEntity {
     public SpectralForgeBE(BlockPos pPos, BlockState pBlockState) {
         super(Registration.SPECTRAL_FORGE_BE.get(), pPos, pBlockState);
 
-        this.inventory = new ItemStackHandler(21); // first slot is the central item, the others are the infusion items
+        this.inventory = new ItemStackHandler(21); // first slot is the input, the others are the outputs
         this.ectoStorage = new EctoHandlerImpl();
         this.maybeInventory = LazyOptional.of(() -> inventory);
         this.maybeEctoStorage = LazyOptional.of(() -> ectoStorage);
@@ -66,12 +69,19 @@ public class SpectralForgeBE extends BlockEntity {
             if(blockEntity.tickTimer <= 0 && blockEntity.portalBB != null && blockEntity.isActive) {
                 for(Entity e : level.getEntities(null, blockEntity.portalBB)) {
                     if(e instanceof ItemEntity) {
-                        blockEntity.slurpItem(((ItemEntity) e).getItem());
+                        boolean craftSucceeded = blockEntity.tryCraft(((ItemEntity) e).getItem());
+                        if(craftSucceeded) {
+                            e.remove(Entity.RemovalReason.KILLED);
+                        } else {
+                            blockEntity.yeet(e, false);
+                        }
 
-                        e.remove(Entity.RemovalReason.KILLED);
                     } else if(e instanceof LivingEntity) {
                         LivingEntity le = (LivingEntity) e;
-                        le.hurt(SpectralDamageSources.SPECTRAL_FORGE, Float.MAX_VALUE);
+                        le.hurt(SpectralDamageSources.SPECTRAL_FORGE, le.getMaxHealth() / 3);
+                        blockEntity.yeet(le, true);
+                    } else {
+                        blockEntity.yeet(e, false);
                     }
                 }
                 blockEntity.tickTimer = blockEntity.tickInterval;
@@ -79,15 +89,6 @@ public class SpectralForgeBE extends BlockEntity {
                 blockEntity.tickTimer -= 1;
             }
         }
-    }
-
-    /**
-     * Attempt to craft an item using the current state of the forge.
-     */
-    public Optional<ItemStack> doCraft(Level level) {
-        return recipeChecker
-                .getRecipeFor(recipeWrapper, level)
-                .map((recipe) -> recipe.assemble(recipeWrapper));
     }
 
     public void tryInitialiseMultiblock() {
@@ -110,7 +111,11 @@ public class SpectralForgeBE extends BlockEntity {
         }
     }
 
-
+    public void withdrawItems(ServerPlayer player) {
+        for(int i = 1; i < this.inventory.getSlots(); i++) {
+            player.getInventory().placeItemBackInInventory(this.inventory.getStackInSlot(i));
+        }
+    }
 
     //////////////////////////
     //// Capability stuff ////
@@ -284,8 +289,42 @@ public class SpectralForgeBE extends BlockEntity {
     //// Crafting Helpers ////
     //////////////////////////
 
-    private void slurpItem(ItemStack item) {
+    /*
+        TODO BUG - input item for crafting recipe is being eaten rather than yeeted if there is insufficient ecto.
+        Working backwards, it's probably because this is returning true erroneously. Which may implicate assemble.
+        Return to this when more brain cells are available.
+     */
+    private boolean tryCraft(ItemStack item) {
+        // If it's an ecto, put it right into storage
+        for(MagicType t : MagicType.values()) {
+            if(item.is(Registration.ECTO_ITEMS(t).get())) {
+                ectoStorage.add(t, 1);
+                return true;
+            }
+        }
 
+        // If not, then put it in the input slot and try a recipe.
+        // Return true iff a recipe was sucessfully found and applied.
+        inventory.setStackInSlot(0, item);
+        return recipeChecker.getRecipeFor(recipeWrapper, level)
+                .map((recipe) -> recipe.assemble(recipeWrapper))
+                .isPresent();
+    }
+
+    private void yeet(Entity e, boolean shouldOmegaYeet) {
+        if(shouldOmegaYeet) {
+            e.addDeltaMovement(e.getPosition(0).subtract(getBlockPos().getCenter()).normalize().add(0,2,0).scale(4));
+        } else {
+            e.addDeltaMovement(e.getPosition(0).subtract(getBlockPos().getCenter()).normalize().add(0,1.5,0).scale(2));
+        }
+    }
+
+    /////////////////////////////
+    //// Getters and Setters ////
+    /////////////////////////////
+
+    public boolean isActive() {
+        return isActive;
     }
 
 }

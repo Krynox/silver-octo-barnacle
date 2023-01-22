@@ -3,6 +3,7 @@ package me.krynox.spectral.datagen.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import me.krynox.spectral.setup.Registration;
+import me.krynox.spectral.spell.MagicType;
 import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeBuilder;
@@ -16,52 +17,65 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class SpectralForgeRecipeBuilder implements RecipeBuilder {
+    private final ResourceLocation recipeId;
     private final Item result;
-    private final Item centralItem;
-    private final List<Item> infusionItems;
-    private final int fireCost;
-    private final int lightningCost;
-    private final int windCost;
-    private final int earthCost;
-    private final int waterCost;
-    private final int iceCost;
-    private final int lightCost;
-    private final int darkCost;
+    private final Item input;
+    private int fireCost = 0;
+    private int lightningCost = 0;
+    private int windCost = 0;
+    private int earthCost = 0;
+    private int waterCost = 0;
+    private int iceCost = 0;
+    private int lightCost = 0;
+    private int darkCost = 0;
 
-    private SpectralForgeRecipeBuilder(Item result, Item centralItem, List<Item> infusionItems, int fireCost, int lightningCost, int windCost, int earthCost, int waterCost, int iceCost, int lightCost, int darkCost) {
+    private SpectralForgeRecipeBuilder(ResourceLocation recipeId, Item result, Item input) {
+        this.recipeId = recipeId;
         this.result = result;
-        this.centralItem = centralItem;
-        this.infusionItems = infusionItems;
-        this.fireCost = fireCost;
-        this.lightningCost = lightningCost;
-        this.windCost = windCost;
-        this.earthCost = earthCost;
-        this.waterCost = waterCost;
-        this.iceCost = iceCost;
-        this.lightCost = lightCost;
-        this.darkCost = darkCost;
+        this.input = input;
     }
 
-    public static FinishedRecipe build(ResourceLocation recipeId, Item result, Item centralItem, List<Item> infusionItems, int fireCost, int lightningCost, int windCost, int earthCost, int waterCost, int iceCost, int lightCost, int darkCost) {
-        SpectralForgeRecipeBuilder b = new SpectralForgeRecipeBuilder(result, centralItem, infusionItems, fireCost, lightningCost, windCost, earthCost, waterCost, iceCost, lightCost, darkCost);
-        return b.finish(recipeId);
+    public static SpectralForgeRecipeBuilder build(ResourceLocation recipeId, Item result, Item input) {
+        return new SpectralForgeRecipeBuilder(recipeId, result, input);
     }
 
-    public FinishedRecipe finish(ResourceLocation recipeId) {
+    public SpectralForgeRecipeBuilder setEctoCost(MagicType type, int cost) {
+        switch (type) {
+            case FIRE -> {
+                fireCost = cost;
+            }
+            case LIGHTNING -> {
+                lightningCost = cost;
+            }
+            case WIND -> {
+                windCost = cost;
+            }
+            case EARTH -> {
+                earthCost = cost;
+            }
+            case WATER -> {
+                waterCost = cost;
+            }
+            case ICE -> {
+                iceCost = cost;
+            }
+            case LIGHT -> {
+                lightCost = cost;
+            }
+            case DARK -> {
+                darkCost = cost;
+            }
+        }
+        return this;
+    }
+
+    public FinishedRecipe finish() {
         return new FinishedRecipe() {
             @Override
             public void serializeRecipeData(JsonObject pJson) {
 
                 pJson.addProperty("result", ForgeRegistries.ITEMS.getKey(result).toString());
-                pJson.addProperty("centralItem", ForgeRegistries.ITEMS.getKey(centralItem).toString());
-                pJson.add("infusionItems", infusionItems
-                        .stream()
-                        .collect(
-                                JsonArray::new,
-                                (arr, item) -> {
-                                    arr.add(ForgeRegistries.ITEMS.getKey(item).toString());
-                                },
-                                JsonArray::addAll));
+                pJson.addProperty("input", ForgeRegistries.ITEMS.getKey(input).toString());
                 pJson.addProperty("fireCost", fireCost);
                 pJson.addProperty("lightningCost", lightningCost);
                 pJson.addProperty("windCost", windCost);
@@ -113,6 +127,6 @@ public class SpectralForgeRecipeBuilder implements RecipeBuilder {
 
     @Override
     public void save(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ResourceLocation pRecipeId) {
-        pFinishedRecipeConsumer.accept(finish(pRecipeId));
+        pFinishedRecipeConsumer.accept(finish());
     }
 }

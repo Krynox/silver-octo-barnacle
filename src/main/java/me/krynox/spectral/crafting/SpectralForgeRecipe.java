@@ -2,7 +2,6 @@ package me.krynox.spectral.crafting;
 
 import me.krynox.spectral.spell.MagicType;
 import me.krynox.spectral.setup.Registration;
-import me.krynox.spectral.util.InvUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -11,14 +10,11 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
-import java.util.List;
-
 public class SpectralForgeRecipe implements Recipe<EctoInvRecipeWrapper> {
     private final ResourceLocation id;
 
     private final Item result;
-    private final Item centralItem;
-    private final List<Item> infusionItems;
+    private final Item input;
 
     private int fireCost = 0;
     private int lightningCost = 0;
@@ -29,11 +25,10 @@ public class SpectralForgeRecipe implements Recipe<EctoInvRecipeWrapper> {
     private int lightCost = 0;
     private int darkCost = 0;
 
-    public SpectralForgeRecipe(ResourceLocation id, Item result, Item centralItem, List<Item> infusionItems) {
+    public SpectralForgeRecipe(ResourceLocation id, Item result, Item input) {
         this.id = id;
         this.result = result;
-        this.centralItem = centralItem;
-        this.infusionItems = infusionItems;
+        this.input = input;
     }
 
     @Override
@@ -46,14 +41,16 @@ public class SpectralForgeRecipe implements Recipe<EctoInvRecipeWrapper> {
                 && inputs.ectoHandler.get(MagicType.ICE) >= iceCost
                 && inputs.ectoHandler.get(MagicType.LIGHT) >= lightCost
                 && inputs.ectoHandler.get(MagicType.DARK) >= darkCost
-                && inputs.getItem(0).is(centralItem)
-                && inputs.hasAll(InvUtils.countList(infusionItems));
+                && inputs.getItem(0).is(input);
     }
 
     //Mutate the state of the container and return the crafting result.
     @Override
-    public ItemStack assemble(EctoInvRecipeWrapper inputs) {
-        return null;
+    public ItemStack assemble(EctoInvRecipeWrapper state) {
+        ItemStack result = getResultItem();
+        state.removeItem(0,1);
+        state.insertItem(result);
+        return result;
     }
 
     @Override
@@ -89,12 +86,8 @@ public class SpectralForgeRecipe implements Recipe<EctoInvRecipeWrapper> {
         return result;
     }
 
-    public Item getCentralItem() {
-        return centralItem;
-    }
-
-    public List<Item> getInfusionItems() {
-        return infusionItems;
+    public Item getInput() {
+        return input;
     }
 
     public int getFireCost() {
