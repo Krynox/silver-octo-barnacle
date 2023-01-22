@@ -28,7 +28,7 @@ public class LeyRiftRenderer extends EntityRenderer<LeyRiftEntity> {
 
     @Override
     public boolean shouldRender(LeyRiftEntity pLivingEntity, Frustum pCamera, double pCamX, double pCamY, double pCamZ) {
-        return true; //this is dumb and needs to change, but one thing at a time 
+        return true; // TODO - this is dumb and needs to change, but one thing at a time
     }
 
     @Override
@@ -80,7 +80,7 @@ public class LeyRiftRenderer extends EntityRenderer<LeyRiftEntity> {
     //it doesn't have a texture, so the superclass insisting on this being defined is weird.
     @Override
     public ResourceLocation getTextureLocation(LeyRiftEntity pEntity) {
-        Spectral.LOGGER.error("Tried to get texture location for ley rift renderer, returning null. Something might break.");
+        Spectral.LOGGER.error("Someone apparently wants the non-existent texture of the LeyRiftRenderer. Something might break.");
         return null;
     }
 }

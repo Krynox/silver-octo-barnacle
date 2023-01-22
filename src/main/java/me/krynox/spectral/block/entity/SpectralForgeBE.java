@@ -12,6 +12,9 @@ import me.krynox.spectral.util.SpectralDamageSources;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -110,6 +113,7 @@ public class SpectralForgeBE extends BlockEntity implements GeoBlockEntity {
             this.portalLayer = portalsLevel.get();
             updatePortalBB();
             Spectral.LOGGER.info("Initialised forge, portal at " + portalBB);
+            level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 2);
         }
     }
 
@@ -126,6 +130,10 @@ public class SpectralForgeBE extends BlockEntity implements GeoBlockEntity {
             double z = getBlockPos().getZ();
             this.portalBB = new AABB(x + 3, y + 1, z + 3, x - 2, y, z - 2);
         }
+    }
+
+    public void deactivate() {
+        this.isActive = false;
     }
 
     //////////////////////////
@@ -199,6 +207,11 @@ public class SpectralForgeBE extends BlockEntity implements GeoBlockEntity {
         updatePortalBB();
     }
 
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        // Will get tag from #getUpdateTag
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
     ///////////////////////////////////////
     //// Helpers for isValidMultiblock ////
     ///////////////////////////////////////
@@ -343,8 +356,12 @@ public class SpectralForgeBE extends BlockEntity implements GeoBlockEntity {
         return isActive;
     }
 
+    public int getPortalLayer() {
+        return portalLayer;
+    }
+
     ///////////////////
-    //// Animation ////
+    //// Rendering ////
     ///////////////////
 
     @Override
@@ -355,5 +372,12 @@ public class SpectralForgeBE extends BlockEntity implements GeoBlockEntity {
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return cache;
+    }
+
+    @Override
+    public AABB getRenderBoundingBox() {
+
+        return new AABB(getBlockPos().getX()+3,getBlockPos().getY(),getBlockPos().getZ()+3,
+                getBlockPos().getX()-2,getBlockPos().getY()-portalLayer,getBlockPos().getZ()-2);
     }
 }

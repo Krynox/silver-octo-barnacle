@@ -1,0 +1,11 @@
+{
+    "vertex": "spectral:spectral_forge_portal",
+    "fragment": "spectral:spectral_forge_portal",
+    "attributes": [
+        "Position",
+        "fragColor"
+    ],
+    "uniforms": [
+        { "name": "ProjMat", "type": "matrix4x4", "count": 16, "values": [ 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 ] }
+    ]
+}
