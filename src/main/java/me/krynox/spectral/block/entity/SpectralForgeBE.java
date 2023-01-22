@@ -185,7 +185,7 @@ public class SpectralForgeBE extends BlockEntity implements GeoBlockEntity {
     //// Syncing data between client and server ////
     ////////////////////////////////////////////////
 
-    //TODO - This is currently probably more heavyweight than needed, syncing everything. Come back later and make in leaner.
+    //TODO - This is currently a lot more heavyweight than needed, syncing everything. Come back later and make in leaner.
 
     @Override
     public CompoundTag getUpdateTag() {

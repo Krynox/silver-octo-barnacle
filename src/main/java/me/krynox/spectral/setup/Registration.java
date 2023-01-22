@@ -7,6 +7,7 @@ import me.krynox.spectral.block.SpectralForge;
 import me.krynox.spectral.block.SpiritCage;
 import me.krynox.spectral.block.entity.SoulMirrorBE;
 import me.krynox.spectral.block.entity.SpectralForgeBE;
+import me.krynox.spectral.block.entity.SpiritCageBE;
 import me.krynox.spectral.crafting.SpectralForgeRecipe;
 import me.krynox.spectral.datagen.recipe.SpectralForgeRecipeSerializer;
 import me.krynox.spectral.entity.LeyRiftEntity;
@@ -137,6 +138,10 @@ public class Registration {
             = BLOCKS.register("spirit_cage", SpiritCage::new);
     public static final RegistryObject<Item> SPIRIT_CAGE_ITEM
             = fromBlock(SPIRIT_CAGE_BLOCK);
+    public static final RegistryObject<BlockEntityType<SpiritCageBE>> SPIRIT_CAGE_BE
+            = BLOCK_ENTITIES.register("spirit_cage", () -> BlockEntityType.Builder
+            .of(SpiritCageBE::new, SPIRIT_CAGE_BLOCK.get())
+            .build(null));
 
     //////////////////
     //// ENTITIES ////

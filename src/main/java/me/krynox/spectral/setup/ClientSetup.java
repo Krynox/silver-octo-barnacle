@@ -4,6 +4,7 @@ import me.krynox.spectral.Spectral;
 import me.krynox.spectral.client.gui.FocusBarOverlay;
 import me.krynox.spectral.client.gui.SpellHotbarOverlay;
 import me.krynox.spectral.client.rendering.block.SpectralForgeRenderer;
+import me.krynox.spectral.client.rendering.block.SpiritCageRenderer;
 import me.krynox.spectral.client.rendering.entity.LeyRiftRenderer;
 import me.krynox.spectral.client.rendering.entity.SpiritRenderer;
 import me.krynox.spectral.spell.MagicType;
@@ -37,6 +38,7 @@ public class ClientSetup {
     @SubscribeEvent
     public static void registerBERs(EntityRenderersEvent.RegisterRenderers e) {
         e.registerBlockEntityRenderer(Registration.SPECTRAL_FORGE_BE.get(), (ctx) -> new SpectralForgeRenderer());
+        e.registerBlockEntityRenderer(Registration.SPIRIT_CAGE_BE.get(), (ctx) -> new SpiritCageRenderer());
     }
     
 

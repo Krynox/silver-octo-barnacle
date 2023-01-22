@@ -19,7 +19,6 @@ public class ModBlockStates extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
        simpleBlockWithItem(Registration.SOUL_MIRROR_BLOCK.get());
-       simpleBlockWithItem(Registration.SPIRIT_CAGE_BLOCK.get());
 
     }
 }
