@@ -1,8 +1,8 @@
 package me.krynox.spectral.capability.spellcaster;
 
 import me.krynox.spectral.Spectral;
+import me.krynox.spectral.magic.AbstractSpell;
 import me.krynox.spectral.setup.Registration;
-import me.krynox.spectral.spell.Spell;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.nbt.CompoundTag;
@@ -29,7 +29,7 @@ public class SpellCasterImpl implements ISpellCaster {
     // The inventory the player interacts with via the soul mirror
     private IItemHandler soulMirrorInv;
 
-    private Spell[] spells = new Spell[SPELL_SLOTS];
+    private AbstractSpell[] spells = new AbstractSpell[SPELL_SLOTS];
     private boolean spellcastingMode = false;
     private int focus = 0;
     
@@ -39,7 +39,7 @@ public class SpellCasterImpl implements ISpellCaster {
     }
 
     @Override
-    public Optional<Spell> getSpell(int slot) {
+    public Optional<AbstractSpell> getSpell(int slot) {
         if(slot < 0 || slot > SPELL_SLOTS) {
             Spectral.LOGGER.error("Tried to get spell from out-of-bounds slot " + slot + ".");
             return Optional.empty();
@@ -54,7 +54,7 @@ public class SpellCasterImpl implements ISpellCaster {
 
 
     @Override
-    public ISpellCaster setSpell(int slot, Spell spell) {
+    public ISpellCaster setSpell(int slot, AbstractSpell spell) {
         if(slot < 0 || slot > SPELL_SLOTS) {
             Spectral.LOGGER.error("Tried to set spell in out-of-bounds slot " + slot + ".");
         }
@@ -69,7 +69,7 @@ public class SpellCasterImpl implements ISpellCaster {
             Spectral.LOGGER.error("Tried to cast spell in out-of-bounds slot " + slot + ".");
         }
 
-        Spell s = spells[slot];
+        AbstractSpell s = spells[slot];
         if(s == null) return;
 
         if(player instanceof ServerPlayer && level instanceof ServerLevel) {
@@ -101,7 +101,7 @@ public class SpellCasterImpl implements ISpellCaster {
         CompoundTag output = new CompoundTag();
         ListTag spellsTag = new ListTag();
 
-        for(Spell spell : spells) {
+        for(AbstractSpell spell : spells) {
             if(spell != null) spellsTag.add(StringTag.valueOf(Registration.SPELLS_REEGISTRY.get().getKey(spell).getPath()));
         }
 
@@ -117,14 +117,14 @@ public class SpellCasterImpl implements ISpellCaster {
         this.spellcastingMode = tag
                 .getBoolean("spellcastingMode");
 
-        List<Spell> foo = tag
+        List<AbstractSpell> foo = tag
                 .getList("spells", 8) //8 is the magic number for String, so this is a list of string tags
                 .stream()
                 .map((stringTag) -> Registration.SPELLS_REEGISTRY.get().getValue(new ResourceLocation(stringTag.getAsString())))
                 .toList();
 
 
-        this.spells = new Spell[foo.size()];
+        this.spells = new AbstractSpell[foo.size()];
         foo.toArray(spells); // reminder: old java api, it mutates the array passed in
     }
 

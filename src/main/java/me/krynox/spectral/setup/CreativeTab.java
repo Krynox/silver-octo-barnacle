@@ -1,7 +1,7 @@
 package me.krynox.spectral.setup;
 
 import me.krynox.spectral.Spectral;
-import me.krynox.spectral.spell.MagicType;
+import me.krynox.spectral.magic.MagicType;
 import me.krynox.spectral.util.LocalisationHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.CreativeModeTabEvent;

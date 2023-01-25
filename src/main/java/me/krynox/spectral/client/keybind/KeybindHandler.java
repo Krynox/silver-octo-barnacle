@@ -28,14 +28,10 @@ public class KeybindHandler {
 		if(cap.isSpellcastingMode()) {
 			if(event.getAction() == InputConstants.PRESS) {
 				if(event.getButton() == GLFW.GLFW_MOUSE_BUTTON_1) {
-					//cap.castSpell(0, mc.player, mc.level);
-					for (int i = 0; i < 6; i++) {
-						cap.setSpell(i, Registration.TEST_SPELL.get());
-					}
+					cap.castSpell(0, mc.player, mc.level);
 					event.setCanceled(true);
 				} else if (event.getButton() == GLFW.GLFW_MOUSE_BUTTON_2) {
-					//cap.castSpell(1, mc.player, mc.level);
-					cap.setSpell(0, null);
+					cap.castSpell(1, mc.player, mc.level);
 					event.setCanceled(true);
 				}
 			}

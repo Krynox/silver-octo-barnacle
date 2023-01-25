@@ -2,9 +2,9 @@ package me.krynox.spectral.datagen;
 
 import me.krynox.spectral.Spectral;
 import me.krynox.spectral.client.keybind.Keybinds;
+import me.krynox.spectral.magic.AbstractSpell;
 import me.krynox.spectral.setup.Registration;
-import me.krynox.spectral.spell.MagicType;
-import me.krynox.spectral.spell.Spell;
+import me.krynox.spectral.magic.MagicType;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.data.LanguageProvider;
@@ -31,7 +31,7 @@ public class ModEnglishLanguageProvider extends LanguageProvider {
         }
     }
 
-    public void add(Spell key, String name) {
+    public void add(AbstractSpell key, String name) {
         add(key.getDescriptionId(), name);
     }
 

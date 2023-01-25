@@ -1,7 +1,7 @@
 package me.krynox.spectral.capability.ectohandler;
 
 import me.krynox.spectral.Spectral;
-import me.krynox.spectral.spell.MagicType;
+import me.krynox.spectral.magic.MagicType;
 import net.minecraft.nbt.CompoundTag;
 
 public class EctoHandlerImpl implements IEctoHandler {

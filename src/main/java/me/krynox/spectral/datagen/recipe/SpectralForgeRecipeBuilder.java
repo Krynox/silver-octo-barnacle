@@ -1,9 +1,8 @@
 package me.krynox.spectral.datagen.recipe;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import me.krynox.spectral.setup.Registration;
-import me.krynox.spectral.spell.MagicType;
+import me.krynox.spectral.magic.MagicType;
 import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeBuilder;
@@ -13,7 +12,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 public class SpectralForgeRecipeBuilder implements RecipeBuilder {

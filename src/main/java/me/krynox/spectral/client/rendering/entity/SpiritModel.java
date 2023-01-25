@@ -2,7 +2,7 @@ package me.krynox.spectral.client.rendering.entity;
 
 import me.krynox.spectral.Spectral;
 import me.krynox.spectral.entity.SpiritEntity;
-import me.krynox.spectral.spell.MagicType;
+import me.krynox.spectral.magic.MagicType;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 

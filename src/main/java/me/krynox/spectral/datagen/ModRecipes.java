@@ -1,10 +1,9 @@
 package me.krynox.spectral.datagen;
 
 import me.krynox.spectral.Spectral;
-import me.krynox.spectral.crafting.SpectralForgeRecipe;
 import me.krynox.spectral.datagen.recipe.SpectralForgeRecipeBuilder;
 import me.krynox.spectral.setup.Registration;
-import me.krynox.spectral.spell.MagicType;
+import me.krynox.spectral.magic.MagicType;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;

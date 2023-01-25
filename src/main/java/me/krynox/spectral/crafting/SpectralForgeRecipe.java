@@ -1,6 +1,6 @@
 package me.krynox.spectral.crafting;
 
-import me.krynox.spectral.spell.MagicType;
+import me.krynox.spectral.magic.MagicType;
 import me.krynox.spectral.setup.Registration;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;

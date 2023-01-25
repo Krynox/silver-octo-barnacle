@@ -1,26 +1,20 @@
-package me.krynox.spectral.spell;
+package me.krynox.spectral.magic;
 
 import me.krynox.spectral.setup.Registration;
 import net.minecraft.Util;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.Nullable;
 
-public class Spell {
+public abstract class AbstractSpell {
     @Nullable
     private String descriptionId = null;
 
-    public void castServer(ServerPlayer player, ServerLevel level) {
+    public abstract void castServer(ServerPlayer player, ServerLevel level);
 
-    }
-
-    public void castClient(LocalPlayer player, ClientLevel level) {
-
-    }
+    public abstract void castClient(LocalPlayer player, ClientLevel level);
 
     /**
      * Get the unlocalized name of the spell.

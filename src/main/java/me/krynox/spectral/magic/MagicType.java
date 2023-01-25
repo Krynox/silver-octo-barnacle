@@ -1,7 +1,6 @@
-package me.krynox.spectral.spell;
+package me.krynox.spectral.magic;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.function.Function;
 

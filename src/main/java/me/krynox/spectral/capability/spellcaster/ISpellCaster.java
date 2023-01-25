@@ -1,6 +1,6 @@
 package me.krynox.spectral.capability.spellcaster;
 
-import me.krynox.spectral.spell.Spell;
+import me.krynox.spectral.magic.AbstractSpell;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -16,7 +16,7 @@ public interface ISpellCaster {
     /**
      * The spell equipped in the specified slot.
      */
-    Optional<Spell> getSpell(int slot);
+    Optional<AbstractSpell> getSpell(int slot);
 
     /**
      * Returns true if there is a spell equipped in the given slot.
@@ -28,7 +28,7 @@ public interface ISpellCaster {
      * Equip the given spell in the given slot.
      * Must `return this`, to allow for chaining.
      */
-    ISpellCaster setSpell(int slot, Spell spell);
+    ISpellCaster setSpell(int slot, AbstractSpell spell);
 
     /**
      * Cast the spell that is equipped in the slot.

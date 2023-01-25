@@ -7,7 +7,7 @@ import me.krynox.spectral.client.rendering.block.SpectralForgeRenderer;
 import me.krynox.spectral.client.rendering.block.SpiritCageRenderer;
 import me.krynox.spectral.client.rendering.entity.LeyRiftRenderer;
 import me.krynox.spectral.client.rendering.entity.SpiritRenderer;
-import me.krynox.spectral.spell.MagicType;
+import me.krynox.spectral.magic.MagicType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;

@@ -1,6 +1,5 @@
 package me.krynox.spectral.setup;
 
-import com.google.common.collect.ImmutableMap;
 import me.krynox.spectral.Spectral;
 import me.krynox.spectral.block.SoulMirror;
 import me.krynox.spectral.block.SpectralForge;
@@ -14,8 +13,8 @@ import me.krynox.spectral.entity.LeyRiftEntity;
 import me.krynox.spectral.entity.SpiritEntity;
 import me.krynox.spectral.item.SpectralMonocle;
 import me.krynox.spectral.item.SpiritCrystal;
-import me.krynox.spectral.spell.MagicType;
-import me.krynox.spectral.spell.Spell;
+import me.krynox.spectral.magic.AbstractSpell;
+import me.krynox.spectral.magic.MagicType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
@@ -31,10 +30,8 @@ import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.*;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 public class Registration {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Spectral.MODID);
@@ -45,8 +42,8 @@ public class Registration {
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Spectral.MODID);
 
     //Custom registries; for each one, a DeferredRegister to use in this class, and then the actual registry constructed from it.
-    public static final DeferredRegister<Spell> SPELLS = DeferredRegister.create(Spectral.resLoc("spell"), Spectral.MODID);
-    public static final Supplier<IForgeRegistry<Spell>> SPELLS_REEGISTRY = SPELLS.makeRegistry(RegistryBuilder::new);
+    public static final DeferredRegister<AbstractSpell> SPELLS = DeferredRegister.create(Spectral.resLoc("spell"), Spectral.MODID);
+    public static final Supplier<IForgeRegistry<AbstractSpell>> SPELLS_REEGISTRY = SPELLS.makeRegistry(RegistryBuilder::new);
 
     public static void registerAll(IEventBus bus) {
         BLOCKS.register(bus);
@@ -180,6 +177,6 @@ public class Registration {
     //// SPELLS ////
     ////////////////
 
-    public static final RegistryObject<Spell> TEST_SPELL
-        = SPELLS.register("test_spell", Spell::new);
+    //public static final RegistryObject<AbstractSpell> TEST_SPELL
+    //    = SPELLS.register("test_spell", AbstractSpell::new);
 }

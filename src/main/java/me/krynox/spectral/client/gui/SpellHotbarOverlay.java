@@ -7,11 +7,10 @@ import me.krynox.spectral.Spectral;
 import me.krynox.spectral.capability.SpectralCapabilities;
 import me.krynox.spectral.capability.spellcaster.ISpellCaster;
 import me.krynox.spectral.setup.Registration;
-import me.krynox.spectral.spell.Spell;
+import me.krynox.spectral.magic.AbstractSpell;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
@@ -56,7 +55,7 @@ public class SpellHotbarOverlay implements IGuiOverlay {
 		GuiComponent.blit(poseStack, x, y, 0, 0, 0, SLOT_SIZE_INNER, SLOT_SIZE_INNER, SLOT_SIZE_INNER, SLOT_SIZE_INNER);
 	}
 
-	private void renderSpellIcon(PoseStack poseStack, Spell spell, int x, int y) {
+	private void renderSpellIcon(PoseStack poseStack, AbstractSpell spell, int x, int y) {
 		ResourceLocation key = Registration.SPELLS_REEGISTRY.get().getKey(spell);
 		if(key == null) return;
 		ResourceLocation tex = Spectral.resLoc("textures/spell/" + key.getPath() + ".png");
