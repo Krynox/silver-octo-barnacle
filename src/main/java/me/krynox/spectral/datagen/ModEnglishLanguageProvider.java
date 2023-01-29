@@ -5,6 +5,7 @@ import me.krynox.spectral.client.keybind.Keybinds;
 import me.krynox.spectral.magic.AbstractSpell;
 import me.krynox.spectral.setup.Registration;
 import me.krynox.spectral.magic.MagicType;
+import me.krynox.spectral.util.LocalisedTextCategory;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.data.LanguageProvider;
@@ -35,12 +36,18 @@ public class ModEnglishLanguageProvider extends LanguageProvider {
         add(key.getDescriptionId(), name);
     }
 
+    public void add(LocalisedTextCategory cat, String key, String name) {
+        add("spectral." + cat.toString().toLowerCase() + "." + key, name);
+    }
 
     @Override
     protected void addTranslations() {
         add("spectral.creative_tab.creativetab", "Spectral");
         add(Keybinds.SPECTRAL_KEYBIND_CATEGORY, "Spectral");
         add("death.attack.spectral.spectral_forge", "%s was shredded by the fabric of space-time.");
+
+
+        add(LocalisedTextCategory.SCREEN, "soul_mirror", "Soul Mirror");
 
         for(MagicType t : MagicType.values()) {
             add(Registration.SPIRIT_SPAWN_EGGS(t).get(), "Spawn " + t.getNameCapitalised() + " Spirit");

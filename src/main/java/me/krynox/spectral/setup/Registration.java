@@ -1,5 +1,6 @@
 package me.krynox.spectral.setup;
 
+import com.electronwill.nightconfig.core.AbstractCommentedConfig;
 import me.krynox.spectral.Spectral;
 import me.krynox.spectral.block.SoulMirror;
 import me.krynox.spectral.block.SpectralForge;
@@ -7,6 +8,7 @@ import me.krynox.spectral.block.SpiritCage;
 import me.krynox.spectral.block.entity.SoulMirrorBE;
 import me.krynox.spectral.block.entity.SpectralForgeBE;
 import me.krynox.spectral.block.entity.SpiritCageBE;
+import me.krynox.spectral.client.gui.menu.SoulMirrorMenu;
 import me.krynox.spectral.crafting.SpectralForgeRecipe;
 import me.krynox.spectral.datagen.recipe.SpectralForgeRecipeSerializer;
 import me.krynox.spectral.entity.LeyRiftEntity;
@@ -18,6 +20,9 @@ import me.krynox.spectral.magic.MagicType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -40,10 +45,14 @@ public class Registration {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Spectral.MODID);
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, Spectral.MODID);
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Spectral.MODID);
+    public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(ForgeRegistries.MENU_TYPES, Spectral.MODID);
 
     //Custom registries; for each one, a DeferredRegister to use in this class, and then the actual registry constructed from it.
     public static final DeferredRegister<AbstractSpell> SPELLS = DeferredRegister.create(Spectral.resLoc("spell"), Spectral.MODID);
-    public static final Supplier<IForgeRegistry<AbstractSpell>> SPELLS_REEGISTRY = SPELLS.makeRegistry(RegistryBuilder::new);
+    public static final Supplier<IForgeRegistry<AbstractSpell>> SPELLS_REGISTRY = SPELLS.makeRegistry(RegistryBuilder::new);
+
+    public static final DeferredRegister<AbstractSpell> BUFFS = DeferredRegister.create(Spectral.resLoc("buff"), Spectral.MODID);
+    public static final Supplier<IForgeRegistry<AbstractSpell>> BUFFS_REGISTRY = BUFFS.makeRegistry(RegistryBuilder::new);
 
     public static void registerAll(IEventBus bus) {
         BLOCKS.register(bus);
@@ -52,7 +61,9 @@ public class Registration {
         BLOCK_ENTITIES.register(bus);
         RECIPE_TYPES.register(bus);
         RECIPE_SERIALIZERS.register(bus);
+        MENUS.register(bus);
         SPELLS.register(bus);
+        BUFFS.register(bus);
     }
 
     public static final BlockBehaviour.Properties DEFAULT_BLOCK_PROPERTIES = BlockBehaviour.Properties.of(Material.STONE).strength(2f).requiresCorrectToolForDrops();
@@ -90,6 +101,14 @@ public class Registration {
 
     public static final RegistryObject<SpectralForgeRecipeSerializer> SPECTRAL_FORGE_RECIPESERIALIZER =
             RECIPE_SERIALIZERS.register("spectral_forge_recipeserializer", SpectralForgeRecipeSerializer::new);
+
+    ///////////////
+    //// MENUS ////
+    ///////////////
+
+    public static final RegistryObject<MenuType<SoulMirrorMenu>> SOUL_MIRROR_MENU =
+            MENUS.register("soul_mirror_menu", () -> new MenuType<>(SoulMirrorMenu::new));
+
 
     ///////////////
     //// ITEMS ////

@@ -21,7 +21,7 @@ public abstract class AbstractSpell {
      */
     public String getDescriptionId() {
         if(this.descriptionId == null) {
-            this.descriptionId = Util.makeDescriptionId("spell", Registration.SPELLS_REEGISTRY.get().getKey(this));
+            this.descriptionId = Util.makeDescriptionId("spell", Registration.SPELLS_REGISTRY.get().getKey(this));
         }
         return this.descriptionId;
     }

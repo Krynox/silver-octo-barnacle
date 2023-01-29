@@ -102,7 +102,7 @@ public class SpellCasterImpl implements ISpellCaster {
         ListTag spellsTag = new ListTag();
 
         for(AbstractSpell spell : spells) {
-            if(spell != null) spellsTag.add(StringTag.valueOf(Registration.SPELLS_REEGISTRY.get().getKey(spell).getPath()));
+            if(spell != null) spellsTag.add(StringTag.valueOf(Registration.SPELLS_REGISTRY.get().getKey(spell).getPath()));
         }
 
         output.putBoolean("spellcastingMode", spellcastingMode);
@@ -120,7 +120,7 @@ public class SpellCasterImpl implements ISpellCaster {
         List<AbstractSpell> foo = tag
                 .getList("spells", 8) //8 is the magic number for String, so this is a list of string tags
                 .stream()
-                .map((stringTag) -> Registration.SPELLS_REEGISTRY.get().getValue(new ResourceLocation(stringTag.getAsString())))
+                .map((stringTag) -> Registration.SPELLS_REGISTRY.get().getValue(new ResourceLocation(stringTag.getAsString())))
                 .toList();
 
 

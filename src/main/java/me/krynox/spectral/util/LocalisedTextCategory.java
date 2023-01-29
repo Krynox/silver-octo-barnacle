@@ -1,8 +1,6 @@
 package me.krynox.spectral.util;
 
 public enum LocalisedTextCategory {
-    ITEM,
-    BLOCK,
-    COMMAND,
+    SCREEN,
     CREATIVE_TAB;
 }

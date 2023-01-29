@@ -56,7 +56,7 @@ public class SpellHotbarOverlay implements IGuiOverlay {
 	}
 
 	private void renderSpellIcon(PoseStack poseStack, AbstractSpell spell, int x, int y) {
-		ResourceLocation key = Registration.SPELLS_REEGISTRY.get().getKey(spell);
+		ResourceLocation key = Registration.SPELLS_REGISTRY.get().getKey(spell);
 		if(key == null) return;
 		ResourceLocation tex = Spectral.resLoc("textures/spell/" + key.getPath() + ".png");
 
