@@ -1,6 +1,5 @@
 package me.krynox.spectral.block;
 
-import me.krynox.spectral.Spectral;
 import me.krynox.spectral.block.entity.SoulMirrorBE;
 import me.krynox.spectral.client.gui.menu.SoulMirrorMenu;
 import me.krynox.spectral.util.LocalisationHelper;
@@ -16,7 +15,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;

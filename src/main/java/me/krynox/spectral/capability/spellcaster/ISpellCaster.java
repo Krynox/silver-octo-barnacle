@@ -3,14 +3,22 @@ package me.krynox.spectral.capability.spellcaster;
 import me.krynox.spectral.magic.AbstractSpell;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.AutoRegisterCapability;
+import net.minecraftforge.items.IItemHandler;
 
 import java.util.Optional;
 
 @AutoRegisterCapability
 public interface ISpellCaster {
 
+    //// Spells
+
+    /**
+     * The total number of spell slots.
+     */
 	int getSpellSlots();
 	
     /**
@@ -51,8 +59,20 @@ public interface ISpellCaster {
      */
     void toggleSpellcastingMode();
 
-    // Should slots/spells be tiered?
-    // Should you have to attune slots to a particular type?
+
+    /**
+     * Get the soul mirror inventory for this player.
+     */
+    IItemHandler getSoulMirrorInv();
+
+    /**
+     * Sync the current state of the soul mirror inventory to the spells list.
+     * Invalid items in slots are ignored and treated as empty slots.
+     * With that said, the slots shouldn't be accepting invalid items in the first place.
+     */
+    void syncSoulMirrorState();
+
+    //// Focus
 
     int getFocus();
     
@@ -61,7 +81,9 @@ public interface ISpellCaster {
     void setFocus(int focus);
 
     void addFocus(int i);
-        
+
+    //// NBT
+
     CompoundTag serialize();
     void deserialize(CompoundTag tag);
 }
