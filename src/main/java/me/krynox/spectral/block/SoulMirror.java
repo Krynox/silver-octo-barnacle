@@ -1,7 +1,7 @@
 package me.krynox.spectral.block;
 
 import me.krynox.spectral.block.entity.SoulMirrorBE;
-import me.krynox.spectral.client.gui.menu.SoulMirrorMenu;
+import me.krynox.spectral.inventory.menu.SoulMirrorMenu;
 import me.krynox.spectral.util.LocalisationHelper;
 import me.krynox.spectral.util.LocalisedTextCategory;
 import net.minecraft.core.BlockPos;

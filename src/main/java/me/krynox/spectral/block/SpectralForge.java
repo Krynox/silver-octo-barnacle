@@ -1,7 +1,7 @@
 package me.krynox.spectral.block;
 
 import me.krynox.spectral.block.entity.SpectralForgeBE;
-import me.krynox.spectral.setup.Registration;
+import me.krynox.spectral.content.Registration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;

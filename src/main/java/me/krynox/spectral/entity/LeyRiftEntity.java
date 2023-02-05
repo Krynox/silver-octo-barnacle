@@ -1,7 +1,7 @@
 package me.krynox.spectral.entity;
 
 
-import me.krynox.spectral.setup.Registration;
+import me.krynox.spectral.content.Registration;
 import me.krynox.spectral.magic.MagicType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;

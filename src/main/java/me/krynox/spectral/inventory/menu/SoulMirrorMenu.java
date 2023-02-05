@@ -1,8 +1,9 @@
-package me.krynox.spectral.client.gui.menu;
+package me.krynox.spectral.inventory.menu;
 
 import me.krynox.spectral.Spectral;
 import me.krynox.spectral.capability.SpectralCapabilities;
-import me.krynox.spectral.setup.Registration;
+import me.krynox.spectral.content.Registration;
+import me.krynox.spectral.content.SpectralTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -13,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class SoulMirrorMenu extends AbstractContainerMenu {
@@ -49,7 +51,12 @@ public class SoulMirrorMenu extends AbstractContainerMenu {
 
         // slots for the soul mirror inv
         for(int i = 0; i < soulMirrorInv.getSlots(); i++) {
-            this.addSlot(new SlotItemHandler(soulMirrorInv, i, SM_START_X + (i * SLOT_WIDTH), SM_START_Y));
+            this.addSlot(new SlotItemHandler(soulMirrorInv, i, SM_START_X + (i * SLOT_WIDTH), SM_START_Y){
+                @Override
+                public boolean mayPlace(@NotNull ItemStack stack) {
+                    return stack.is(SpectralTags.SPELL_CRYSTAL);
+                }
+            });
         }
 
         //hotbar slots

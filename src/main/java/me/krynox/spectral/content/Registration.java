@@ -1,6 +1,5 @@
-package me.krynox.spectral.setup;
+package me.krynox.spectral.content;
 
-import com.electronwill.nightconfig.core.AbstractCommentedConfig;
 import me.krynox.spectral.Spectral;
 import me.krynox.spectral.block.SoulMirror;
 import me.krynox.spectral.block.SpectralForge;
@@ -8,7 +7,7 @@ import me.krynox.spectral.block.SpiritCage;
 import me.krynox.spectral.block.entity.SoulMirrorBE;
 import me.krynox.spectral.block.entity.SpectralForgeBE;
 import me.krynox.spectral.block.entity.SpiritCageBE;
-import me.krynox.spectral.client.gui.menu.SoulMirrorMenu;
+import me.krynox.spectral.inventory.menu.SoulMirrorMenu;
 import me.krynox.spectral.crafting.SpectralForgeRecipe;
 import me.krynox.spectral.datagen.recipe.SpectralForgeRecipeSerializer;
 import me.krynox.spectral.entity.LeyRiftEntity;
@@ -20,8 +19,6 @@ import me.krynox.spectral.magic.MagicType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;

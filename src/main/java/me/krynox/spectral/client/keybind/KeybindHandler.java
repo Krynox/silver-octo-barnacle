@@ -1,6 +1,5 @@
 package me.krynox.spectral.client.keybind;
 
-import me.krynox.spectral.setup.Registration;
 import org.lwjgl.glfw.GLFW;
 
 import com.mojang.blaze3d.platform.InputConstants;
@@ -9,7 +8,6 @@ import me.krynox.spectral.Spectral;
 import me.krynox.spectral.capability.SpectralCapabilities;
 import me.krynox.spectral.capability.spellcaster.ISpellCaster;
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.event.TickEvent;

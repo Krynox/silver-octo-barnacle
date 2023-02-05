@@ -1,6 +1,6 @@
 package me.krynox.spectral.magic;
 
-import me.krynox.spectral.setup.Registration;
+import me.krynox.spectral.content.Registration;
 import net.minecraft.Util;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;

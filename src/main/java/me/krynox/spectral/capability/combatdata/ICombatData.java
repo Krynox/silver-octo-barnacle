@@ -3,7 +3,6 @@ package me.krynox.spectral.capability.combatdata;
 import me.krynox.spectral.magic.BuffStack;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -24,8 +23,7 @@ public interface ICombatData {
         getBuffs().removeIf(filter);
     }
 
-
-    default void tickAll(Level level, Player player) {
+    default void tickAllBuffs(Level level, Player player) {
         if(level instanceof ClientLevel && player instanceof LocalPlayer) {
             for(BuffStack b : getBuffs()) {
                 b.getBuff().clientTick((ClientLevel) level, (LocalPlayer) player);

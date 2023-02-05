@@ -1,6 +1,7 @@
 package me.krynox.spectral.setup;
 
 import me.krynox.spectral.Spectral;
+import me.krynox.spectral.content.Registration;
 import me.krynox.spectral.entity.SpiritEntity;
 import me.krynox.spectral.magic.MagicType;
 import net.minecraft.world.entity.Mob;

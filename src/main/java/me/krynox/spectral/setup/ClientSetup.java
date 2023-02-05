@@ -1,13 +1,14 @@
 package me.krynox.spectral.setup;
 
 import me.krynox.spectral.Spectral;
-import me.krynox.spectral.client.gui.FocusBarOverlay;
-import me.krynox.spectral.client.gui.SpellHotbarOverlay;
+import me.krynox.spectral.client.gui.overlay.FocusBarOverlay;
+import me.krynox.spectral.client.gui.overlay.SpellHotbarOverlay;
 import me.krynox.spectral.client.gui.screen.SoulMirrorScreen;
 import me.krynox.spectral.client.rendering.block.SpectralForgeRenderer;
 import me.krynox.spectral.client.rendering.block.SpiritCageRenderer;
 import me.krynox.spectral.client.rendering.entity.LeyRiftRenderer;
 import me.krynox.spectral.client.rendering.entity.SpiritRenderer;
+import me.krynox.spectral.content.Registration;
 import me.krynox.spectral.magic.MagicType;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.entity.EntityRenderers;

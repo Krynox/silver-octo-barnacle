@@ -1,7 +1,7 @@
 package me.krynox.spectral;
 
 import com.mojang.logging.LogUtils;
-import me.krynox.spectral.setup.Registration;
+import me.krynox.spectral.content.Registration;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;

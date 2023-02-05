@@ -1,4 +1,4 @@
-package me.krynox.spectral.client.gui;
+package me.krynox.spectral.client.gui.overlay;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -6,7 +6,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import me.krynox.spectral.Spectral;
 import me.krynox.spectral.capability.SpectralCapabilities;
 import me.krynox.spectral.capability.spellcaster.ISpellCaster;
-import me.krynox.spectral.setup.Registration;
+import me.krynox.spectral.content.Registration;
 import me.krynox.spectral.magic.AbstractSpell;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.player.LocalPlayer;

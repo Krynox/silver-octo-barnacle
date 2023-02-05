@@ -1,7 +1,7 @@
 package me.krynox.spectral.datagen;
 
 import me.krynox.spectral.Spectral;
-import me.krynox.spectral.setup.Registration;
+import me.krynox.spectral.content.Registration;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.BlockStateProvider;

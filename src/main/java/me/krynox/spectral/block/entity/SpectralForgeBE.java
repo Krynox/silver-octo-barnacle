@@ -6,7 +6,7 @@ import me.krynox.spectral.capability.ectohandler.EctoHandlerImpl;
 import me.krynox.spectral.capability.ectohandler.IEctoHandler;
 import me.krynox.spectral.crafting.EctoInvRecipeWrapper;
 import me.krynox.spectral.crafting.SpectralForgeRecipe;
-import me.krynox.spectral.setup.Registration;
+import me.krynox.spectral.content.Registration;
 import me.krynox.spectral.magic.MagicType;
 import me.krynox.spectral.util.SpectralDamageSources;
 import net.minecraft.core.BlockPos;
@@ -342,9 +342,9 @@ public class SpectralForgeBE extends BlockEntity implements GeoBlockEntity {
 
     private void yeet(Entity e, boolean shouldOmegaYeet) {
         if(shouldOmegaYeet) {
-            e.addDeltaMovement(e.getPosition(0).subtract(getBlockPos().getCenter()).normalize().add(0,1.1,0).scale(4));
+            e.addDeltaMovement(e.getPosition(0).subtract(getBlockPos().getCenter()).normalize().add(0,1.8,0).scale(4));
         } else {
-            e.addDeltaMovement(e.getPosition(0).subtract(getBlockPos().getCenter()).normalize().add(0,1.6,0).scale(2));
+            e.addDeltaMovement(e.getPosition(0).subtract(getBlockPos().getCenter()).normalize().add(0,1.8,0).scale(2));
         }
     }
 

@@ -1,7 +1,7 @@
 package me.krynox.spectral.datagen.recipe;
 
 import com.google.gson.JsonObject;
-import me.krynox.spectral.setup.Registration;
+import me.krynox.spectral.content.Registration;
 import me.krynox.spectral.magic.MagicType;
 import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.data.recipes.FinishedRecipe;

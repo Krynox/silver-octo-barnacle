@@ -1,7 +1,7 @@
 package me.krynox.spectral.crafting;
 
 import me.krynox.spectral.magic.MagicType;
-import me.krynox.spectral.setup.Registration;
+import me.krynox.spectral.content.Registration;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;

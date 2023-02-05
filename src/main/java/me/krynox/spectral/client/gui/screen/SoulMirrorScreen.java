@@ -3,7 +3,7 @@ package me.krynox.spectral.client.gui.screen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.krynox.spectral.Spectral;
-import me.krynox.spectral.client.gui.menu.SoulMirrorMenu;
+import me.krynox.spectral.inventory.menu.SoulMirrorMenu;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
