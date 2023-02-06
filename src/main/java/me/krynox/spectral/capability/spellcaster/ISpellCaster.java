@@ -41,7 +41,7 @@ public interface ISpellCaster {
     /**
      * Cast the spell that is equipped in the slot.
      */
-    void castSpell(int slot, Player player, Level level);
+    void castSpell(int slot, Player player, Level level, float partialTicks);
 
     /**
      * Whether the player is currently in spellcasting mode.

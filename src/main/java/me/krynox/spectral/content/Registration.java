@@ -193,6 +193,6 @@ public class Registration {
     //// SPELLS ////
     ////////////////
 
-    //public static final RegistryObject<AbstractSpell> TEST_SPELL
-    //    = SPELLS.register("test_spell", AbstractSpell::new);
+    public static final RegistryObject<AbstractSpell> TEST_SPELL
+        = SPELLS.register("test_spell", () -> AbstractSpell.SimpleRaycast(20, Integer.MAX_VALUE, (e) -> Spectral.LOGGER.info(e.toString())));
 }
