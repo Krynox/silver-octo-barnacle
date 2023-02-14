@@ -65,21 +65,27 @@ public class SpellCasterImpl implements ISpellCaster {
     }
 
     @Override
-    public void castSpell(int slot, Player player, Level level, float partialTicks) {
+    public void castSpellClient(int slot, LocalPlayer player, ClientLevel level, float partialTicks) {
         if(slot < 0 || slot > SPELL_SLOTS) {
             Spectral.LOGGER.error("Tried to cast spell in out-of-bounds slot " + slot + ".");
         }
 
         AbstractSpell s = spells[slot];
         if(s == null) return;
+        s.castClient(player, level, partialTicks);
 
-        if(player instanceof ServerPlayer && level instanceof ServerLevel) {
-            Spectral.LOGGER.debug("Server casting " + slot);
-            s.castServer((ServerPlayer) player, (ServerLevel) level, partialTicks);
-        } else if(player instanceof LocalPlayer && level instanceof ClientLevel) {
-            Spectral.LOGGER.debug("Client casting " + slot);
-            s.castClient((LocalPlayer) player, (ClientLevel) level, partialTicks);
+    }
+
+    @Override
+    public void castSpellServer(int slot, ServerPlayer player, ServerLevel level, float partialTicks) {
+        if(slot < 0 || slot > SPELL_SLOTS) {
+            Spectral.LOGGER.error("Tried to cast spell in out-of-bounds slot " + slot + ".");
         }
+
+        AbstractSpell s = spells[slot];
+        if(s == null) return;
+        s.castServer(player, level, partialTicks);
+
     }
 
     @Override

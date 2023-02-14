@@ -4,6 +4,7 @@ import me.krynox.spectral.Spectral;
 import me.krynox.spectral.content.Registration;
 import me.krynox.spectral.entity.SpiritEntity;
 import me.krynox.spectral.magic.MagicType;
+import me.krynox.spectral.networking.SpectralPacketHandler;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -18,7 +19,7 @@ public class CommonSetup {
 
     @SubscribeEvent
     public static void init(final FMLCommonSetupEvent e) {
-
+        SpectralPacketHandler.init(); // register network packets
     }
 
     @SubscribeEvent

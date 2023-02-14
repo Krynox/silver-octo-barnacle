@@ -8,12 +8,10 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.logging.Level;
 
 public abstract class AbstractSpell {
     public static AbstractSpell SimpleRaycast(float len, int targetCap, Consumer<Entity> effect) {
@@ -29,6 +27,7 @@ public abstract class AbstractSpell {
             @Override
             public void castClient(LocalPlayer player, ClientLevel level, float partialTicks) {
 
+
             }
         };
     }
@@ -36,8 +35,8 @@ public abstract class AbstractSpell {
     @Nullable //populated lazily by getDescriptionId(), because it depends on the registry being loaded
     private String descriptionId = null;
 
-    // Whether the spell is continuous, in which case the cast methods are called every tick while the button is held,
-    // or not, in which case they fire once when the button is *released*.
+    // Whether the spell is continuous, in which case the cast methods should be called every tick while the button is held,
+    // or not, in which case they should be called once when the button is *released*.
     private final boolean CONTINUOUS;
 
     public AbstractSpell(boolean continuous) {

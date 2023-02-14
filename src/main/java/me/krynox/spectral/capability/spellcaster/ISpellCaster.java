@@ -1,7 +1,11 @@
 package me.krynox.spectral.capability.spellcaster;
 
 import me.krynox.spectral.magic.AbstractSpell;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -41,7 +45,8 @@ public interface ISpellCaster {
     /**
      * Cast the spell that is equipped in the slot.
      */
-    void castSpell(int slot, Player player, Level level, float partialTicks);
+    void castSpellClient(int slot, LocalPlayer player, ClientLevel level, float partialTicks);
+    void castSpellServer(int slot, ServerPlayer player, ServerLevel level, float partialTicks);
 
     /**
      * Whether the player is currently in spellcasting mode.
